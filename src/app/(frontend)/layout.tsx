@@ -1,19 +1,29 @@
-import React from 'react'
-import './styles.css'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { Navbar } from "@/components/ui/Navbar";
+import { Footer } from "@/components/ui/Footer";
+import { cn } from "@/lib/utils";
+import "./globals.css";
 
-export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
-}
+const inter = Inter({ subsets: ["latin"] });
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
-  const { children } = props
+export const metadata: Metadata = {
+  title: "Morerolls Studio",
+  description: "Cinematic Visual Storytelling",
+};
 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body>
-        <main>{children}</main>
+    <html lang="en" className="scroll-smooth">
+      <body className={inter.className}>
+        <Navbar />
+        {children}
+        <Footer />
       </body>
     </html>
-  )
+  );
 }
