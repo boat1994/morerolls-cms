@@ -8,7 +8,7 @@ export default function ContactPage() {
             <Container>
                 <div className="max-w-4xl">
                     <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold mb-12 uppercase tracking-tighter">
-                        Let's Create<br />Something<br />Extraordinary.
+                        Let&apos;s Create<br />Something<br />Extraordinary.
                     </h1>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20">

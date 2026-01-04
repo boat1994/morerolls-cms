@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { ImageSlider } from "@/components/ui/ImageSlider";
+
 import { motion } from "framer-motion";
 
 export interface HighlightItem {
@@ -18,7 +18,7 @@ interface HighlightSectionProps {
 export function HighlightSection({ items }: HighlightSectionProps) {
     return (
         <div className="flex flex-col gap-0">
-            {items.map((item, index) => (
+            {items.map((item) => (
                 <Section key={item.id} className="border-t border-neutral-200 dark:border-neutral-800">
                     <Container>
                         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">

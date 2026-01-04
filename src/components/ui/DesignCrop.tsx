@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 interface DesignCropProps {
     src?: string;
     top: number; // Percentage from top
-    height: number; // Percentage height of the crop relative to original image
+
     aspectRatio?: string; // CSS aspect-ratio
     className?: string;
     backgroundSize?: string; // Default '100% auto' (width 100%, height auto)
@@ -12,7 +12,7 @@ interface DesignCropProps {
 export function DesignCrop({
     src = "/design-ref.png",
     top,
-    height,
+
     aspectRatio = "16/9",
     className,
     backgroundSize = "100% auto",
