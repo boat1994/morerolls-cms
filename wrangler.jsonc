@@ -52,6 +52,12 @@
           "remote": true,
         },
       ],
+      "services": [
+        {
+          "binding": "WORKER_SELF_REFERENCE",
+          "service": "morerolls-cms-dev"
+        },
+      ],
       "r2_buckets": [
         {
           "binding": "R2",
