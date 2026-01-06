@@ -43,22 +43,23 @@
   ],
   "env": {
       "dev": {
-      "name": "morerolls-cms-dev",
-      "d1_databases": [
-    {
-      "binding": "D1",
-      "database_id": "644bb64c-425b-4731-bf66-0986eb3745f9",
-      "database_name": "morerolls-dev",
-      "remote": true,
-    },
-  ],
-    "r2_buckets": [
-      {
-        "binding": "R2",
-        "bucket_name": "morerolls-dev",
-        "preview_bucket_name": "morerolls-dev",
-      },
-    ],
+        "name": "morerolls-cms-dev",
+        "d1_databases": [
+        {
+          "binding": "D1",
+          "database_id": "644bb64c-425b-4731-bf66-0986eb3745f9",
+          "database_name": "morerolls-dev",
+          "remote": true,
+        },
+      ],
+      "r2_buckets": [
+        {
+          "binding": "R2",
+          "bucket_name": "morerolls-dev",
+          "preview_bucket_name": "morerolls-dev",
+        },
+      ],
+    }
   },
 
   // Here's how to configure an additional environment
