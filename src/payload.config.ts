@@ -14,7 +14,7 @@ import { Projects } from './collections/Projects'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const isCLI = process.argv.some((value) => value.match(/^(generate|migrate):?/))
+const isCLI = process.argv.some((value) => value.match(/^(generate|migrate|build):?/))
 const isProduction = process.env.NODE_ENV === 'production'
 
 const cloudflare =
@@ -50,7 +50,7 @@ function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
     ({ getPlatformProxy }) =>
       getPlatformProxy({
         environment: process.env.CLOUDFLARE_ENV,
-        remoteBindings: isProduction,
+        remoteBindings: isProduction && !isCLI,
       } satisfies GetPlatformProxyOptions),
   )
 }

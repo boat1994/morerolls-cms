@@ -1,13 +1,16 @@
 import { withPayload } from '@payloadcms/next/withPayload'
 
+import type { NextConfig } from 'next'
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   // Your Next.js config here
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'https://pub-ce68ca97bac342d383f6284fff969191.r2.dev',
+        hostname:
+          process.env.NEXT_PUBLIC_R2_HOSTNAME || 'pub-ce68ca97bac342d383f6284fff969191.r2.dev',
         port: '',
         pathname: '/**', // อนุญาตทุก Path
       },
