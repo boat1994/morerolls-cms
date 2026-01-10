@@ -1,4 +1,5 @@
 import { withPayload } from '@payloadcms/next/withPayload'
+import process from 'node:process'
 
 import type { NextConfig } from 'next'
 
@@ -6,6 +7,7 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   // Your Next.js config here
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

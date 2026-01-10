@@ -16,11 +16,5 @@ export const Media: CollectionConfig = {
     // These are not supported on Workers yet due to lack of sharp
     crop: false,
     focalPoint: false,
-    generateFileURL: ({ filename }: { filename: string }) => {
-      if (process.env.NEXT_PUBLIC_R2_HOSTNAME) {
-        return `https://${process.env.NEXT_PUBLIC_R2_HOSTNAME}/${filename}`
-      }
-      return `/api/media/file/${filename}`
-    },
   },
 }
