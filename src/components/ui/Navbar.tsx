@@ -64,7 +64,7 @@ export function Navbar() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8 lg:gap-12">
-                        <NavLink href="/work" isScrolled={effectiveScrolled}>Work</NavLink>
+                        <NavLink href="/projects" isScrolled={effectiveScrolled}>Projects</NavLink>
                         <NavLink href="/services" isScrolled={effectiveScrolled}>Services</NavLink>
                         <NavLink href="/about" isScrolled={effectiveScrolled}>About</NavLink>
                         <NavLink href="/contact" isScrolled={effectiveScrolled}>Contact</NavLink>
@@ -92,7 +92,7 @@ export function Navbar() {
                         className="fixed inset-0 z-40 bg-white flex flex-col justify-center items-center md:hidden"
                     >
                         <div className="flex flex-col items-center gap-8 text-center">
-                            <MobileNavLink href="/work" onClick={() => setIsOpen(false)}>Work</MobileNavLink>
+                            <MobileNavLink href="/projects" onClick={() => setIsOpen(false)}>Projects</MobileNavLink>
                             <MobileNavLink href="/services" onClick={() => setIsOpen(false)}>Services</MobileNavLink>
                             <MobileNavLink href="/about" onClick={() => setIsOpen(false)}>About</MobileNavLink>
                             <MobileNavLink href="/contact" onClick={() => setIsOpen(false)}>Contact</MobileNavLink>
