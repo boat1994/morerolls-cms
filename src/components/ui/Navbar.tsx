@@ -51,10 +51,12 @@ export function Navbar() {
             >
                 <div className="w-full max-w-[1920px] mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between relative">
                     
-                    {/* Mobile Menu Button - Left */}
-                     <div className="flex items-center justify-start flex-1 md:hidden">
+                    {/* --- MOBILE LAYOUT --- */}
+                    
+                    {/* Mobile: Hamburger Button (Left) */}
+                     <div className="flex items-center justify-start md:hidden z-50">
                         <button
-                            className={`relative z-50 p-2 -ml-2 transition-colors duration-300 ${textColorClass}`}
+                            className={`p-2 -ml-2 transition-colors duration-300 ${textColorClass}`}
                             onClick={() => setIsOpen(!isOpen)}
                             aria-label="Toggle menu"
                         >
@@ -62,16 +64,10 @@ export function Navbar() {
                         </button>
                     </div>
 
-                    {/* Desktop Navigation - Left (Hidden on Mobile) */}
-                    <div className="hidden md:flex flex-1 items-center gap-8 lg:gap-12">
-                        <NavLink href="/projects" isScrolled={effectiveScrolled}>Projects</NavLink>
-                        <NavLink href="/services" isScrolled={effectiveScrolled}>Services</NavLink>
-                    </div>
-
-                    {/* Logo - Center */}
-                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0 md:flex-none">
-                        <Link href="/" className="relative z-50 block" onClick={() => setIsOpen(false)}>
-                            <div className="relative h-8 md:h-10 w-auto aspect-[3/1]">
+                    {/* Mobile: Logo (Center Absolute) */}
+                     <div className="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+                        <Link href="/" className="block" onClick={() => setIsOpen(false)}>
+                            <div className="relative h-8 w-auto aspect-[3/1]">
                                 <Image
                                     src="/logo.avif"
                                     alt="Morerolls Studio"
@@ -83,21 +79,45 @@ export function Navbar() {
                         </Link>
                     </div>
 
-                    {/* Desktop Navigation - Right (Hidden on Mobile) */}
-                     <div className="hidden md:flex flex-1 items-center justify-end gap-8 lg:gap-12">
+                    {/* Mobile: Search (Right) */}
+                    <div className="flex items-center justify-end md:hidden z-50">
+                         <div className={`${textColorClass}`}>
+                            <Search />
+                        </div>
+                    </div>
+
+                     {/* --- DESKTOP LAYOUT --- */}
+
+                     {/* Desktop: Logo (Left) */}
+                    <div className="hidden md:block relative z-50 flex-none">
+                        <Link href="/" onClick={() => setIsOpen(false)}>
+                            <div className="relative h-10 w-auto aspect-[3/1]">
+                                <Image
+                                    src="/logo.avif"
+                                    alt="Morerolls Studio"
+                                    fill
+                                    className={`object-contain object-left transition-all duration-300 ${logoBrightnessClass}`}
+                                    priority
+                                />
+                            </div>
+                        </Link>
+                    </div>
+
+                    {/* Desktop: Navigation (Center) */}
+                    <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8 lg:gap-12">
+                        <NavLink href="/projects" isScrolled={effectiveScrolled}>Projects</NavLink>
+                        <NavLink href="/services" isScrolled={effectiveScrolled}>Services</NavLink>
                         <NavLink href="/about" isScrolled={effectiveScrolled}>About</NavLink>
                         <NavLink href="/contact" isScrolled={effectiveScrolled}>Contact</NavLink>
+                    </div>
+
+                    {/* Desktop: Search (Right) */}
+                     <div className="hidden md:flex items-center justify-end gap-8 lg:gap-12 flex-none">
                          <div className={`${effectiveScrolled ? "text-black" : "text-white"}`}>
                             <Search />
                         </div>
                     </div>
 
-                    {/* Mobile Search - Right */}
-                    <div className="flex items-center justify-end flex-1 md:hidden">
-                         <div className={`${textColorClass}`}>
-                            <Search />
-                        </div>
-                    </div>
                 </div>
             </motion.nav>
 
