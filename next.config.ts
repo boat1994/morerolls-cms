@@ -6,6 +6,7 @@ import type { NextConfig } from 'next'
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   // Your Next.js config here
+  output: 'standalone', // ต้องมี!
   images: {
     unoptimized: true,
     remotePatterns: [
