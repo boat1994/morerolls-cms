@@ -10,6 +10,7 @@ import { r2Storage } from '@payloadcms/storage-r2'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Projects } from './collections/Projects'
+import { Services } from './collections/Services'
 import { RootPageMedias } from './globals/RootPageMedias'
 
 const filename = fileURLToPath(import.meta.url)
@@ -30,7 +31,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Projects],
+  collections: [Users, Media, Projects, Services],
   globals: [RootPageMedias],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
