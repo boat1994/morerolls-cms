@@ -94,10 +94,12 @@ export interface Config {
   globals: {
     'root-page-medias': RootPageMedia;
     'about-page': AboutPage;
+    general: General;
   };
   globalsSelect: {
     'root-page-medias': RootPageMediasSelect<false> | RootPageMediasSelect<true>;
     'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
+    general: GeneralSelect<false> | GeneralSelect<true>;
   };
   locale: null;
   user: User & {
@@ -545,6 +547,26 @@ export interface AboutPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "general".
+ */
+export interface General {
+  id: number;
+  /**
+   * Text displayed after the copyright year (e.g., "Morerolls Studio")
+   */
+  footerText?: string | null;
+  socialLinks?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "root-page-medias_select".
  */
 export interface RootPageMediasSelect<T extends boolean = true> {
@@ -612,6 +634,23 @@ export interface AboutPageSelect<T extends boolean = true> {
         icon?: T;
         title?: T;
         description?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "general_select".
+ */
+export interface GeneralSelect<T extends boolean = true> {
+  footerText?: T;
+  socialLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
         id?: T;
       };
   updatedAt?: T;

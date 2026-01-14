@@ -13,6 +13,7 @@ import { Projects } from './collections/Projects'
 import { Services } from './collections/Services'
 import { RootPageMedias } from './globals/RootPageMedias'
 import { AboutPage } from './globals/AboutPage'
+import { General } from './globals/General'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -33,7 +34,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Projects, Services],
-  globals: [RootPageMedias, AboutPage],
+  globals: [RootPageMedias, AboutPage, General],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
