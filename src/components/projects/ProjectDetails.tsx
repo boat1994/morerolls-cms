@@ -1,11 +1,11 @@
 'use client'
-
+import dynamic from 'next/dynamic'
 import { Container } from '@/components/ui/Container'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { Media } from '@/payload-types'
-import ReactPlayer from 'react-player'
+const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 

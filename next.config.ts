@@ -6,7 +6,7 @@ import type { NextConfig } from 'next'
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   // Your Next.js config here
-  output: 'standalone', // ต้องมี!
+  output: 'standalone',
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -19,11 +19,25 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack: (webpackConfig: any) => {
+  webpack: (webpackConfig: any, { isServer }: any) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
       '.js': ['.ts', '.tsx', '.js', '.jsx'],
       '.mjs': ['.mts', '.mjs'],
+    }
+
+    // Externalize node:http and node:http2 for Cloudflare Workers compatibility
+    // These modules are not available in the Cloudflare Workers runtime
+    if (!isServer) {
+      webpackConfig.externals = webpackConfig.externals || []
+      if (Array.isArray(webpackConfig.externals)) {
+        webpackConfig.externals.push({
+          'node:http': 'commonjs node:http',
+          'node:http2': 'commonjs node:http2',
+          'http': 'commonjs http',
+          'http2': 'commonjs http2',
+        })
+      }
     }
 
     return webpackConfig

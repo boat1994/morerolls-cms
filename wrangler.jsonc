@@ -2,8 +2,8 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "morerolls-cms",
-  "compatibility_date": "2026-01-15",
-  "compatibility_flags": ["nodejs_compat_v2", "global_fetch_strictly_public"],
+  "compatibility_date": "2025-08-15",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
@@ -13,7 +13,7 @@
       "binding": "D1",
       "database_id": "b83d1ac7-8536-4f7c-a9b9-5975192f5fda",
       "database_name": "morerolls",
-      "remote": true ,
+      "remote": true,
     },
   ],
   "r2_buckets": [
@@ -31,7 +31,7 @@
           "binding": "D1",
           "database_id": "644bb64c-425b-4731-bf66-0986eb3745f9",
           "database_name": "morerolls-dev",
-          "remote": false,
+          "remote": true,
         },
       ],
       "r2_buckets": [
@@ -42,7 +42,9 @@
         },
       ],
       "vars": {
+        "NODE_ENV": "production",
         "NEXT_PUBLIC_R2_HOSTNAME": "pub-ce68ca97bac342d383f6284fff969191.r2.dev",
+        "PAYLOAD_SECRET": "your-secret-key"
       },
     },
   },
