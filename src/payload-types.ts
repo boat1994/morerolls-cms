@@ -89,8 +89,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'root-page-medias': RootPageMedia;
+  };
+  globalsSelect: {
+    'root-page-medias': RootPageMediasSelect<false> | RootPageMediasSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -347,6 +351,69 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "root-page-medias".
+ */
+export interface RootPageMedia {
+  id: number;
+  heroVideo: {
+    desktop: {
+      type: 'upload' | 'youtube';
+      url?: string | null;
+      file?: (number | null) | Media;
+    };
+    mobile: {
+      type: 'upload' | 'youtube';
+      url?: string | null;
+      file?: (number | null) | Media;
+    };
+  };
+  clientLogos?:
+    | {
+        /**
+         * Please upload a 1:1 aspect ratio image containing only the logo.
+         */
+        logo: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "root-page-medias_select".
+ */
+export interface RootPageMediasSelect<T extends boolean = true> {
+  heroVideo?:
+    | T
+    | {
+        desktop?:
+          | T
+          | {
+              type?: T;
+              url?: T;
+              file?: T;
+            };
+        mobile?:
+          | T
+          | {
+              type?: T;
+              url?: T;
+              file?: T;
+            };
+      };
+  clientLogos?:
+    | T
+    | {
+        logo?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
