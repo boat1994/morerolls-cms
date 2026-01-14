@@ -95,11 +95,13 @@ export interface Config {
     'root-page-medias': RootPageMedia;
     'about-page': AboutPage;
     general: General;
+    'contact-page': ContactPage;
   };
   globalsSelect: {
     'root-page-medias': RootPageMediasSelect<false> | RootPageMediasSelect<true>;
     'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
     general: GeneralSelect<false> | GeneralSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
   };
   locale: null;
   user: User & {
@@ -567,6 +569,22 @@ export interface General {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: number;
+  headline: string;
+  email: string;
+  phone: string;
+  visitUs?: {
+    showSection?: boolean | null;
+    address?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "root-page-medias_select".
  */
 export interface RootPageMediasSelect<T extends boolean = true> {
@@ -652,6 +670,24 @@ export interface GeneralSelect<T extends boolean = true> {
         label?: T;
         url?: T;
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  headline?: T;
+  email?: T;
+  phone?: T;
+  visitUs?:
+    | T
+    | {
+        showSection?: T;
+        address?: T;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -1,6 +1,8 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-d1-sqlite'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
+  // PATCHED: Tables already exist in local dev, skipping creation.
+  /*
   await db.run(sql`CREATE TABLE \`projects\` (
   	\`id\` integer PRIMARY KEY NOT NULL,
   	\`title\` text NOT NULL,
@@ -29,6 +31,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE UNIQUE INDEX \`payload_kv_key_idx\` ON \`payload_kv\` (\`key\`);`)
   await db.run(sql`ALTER TABLE \`payload_locked_documents_rels\` ADD \`projects_id\` integer REFERENCES projects(id);`)
   await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_projects_id_idx\` ON \`payload_locked_documents_rels\` (\`projects_id\`);`)
+  */
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
