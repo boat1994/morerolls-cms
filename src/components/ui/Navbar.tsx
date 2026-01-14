@@ -13,7 +13,7 @@ export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const { scrollY } = useScroll();
     const pathname = usePathname();
-    const isHomePage = pathname === "/";
+    const isHeroContentPage = pathname === "/" || pathname === "/about" ;
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         if (latest > 50) {
@@ -35,7 +35,7 @@ export function Navbar() {
     // Conditional Styling Logic
     // If NOT home page, always behave as if scrolled (White bg, Black text)
     // If Home page, use isScrolled state
-    const effectiveScrolled = !isHomePage || isScrolled;
+    const effectiveScrolled = !isHeroContentPage || isScrolled;
 
     const textColorClass = effectiveScrolled || isOpen ? "text-black" : "text-white";
     const logoBrightnessClass = effectiveScrolled || isOpen ? "brightness-0" : "brightness-0 invert";

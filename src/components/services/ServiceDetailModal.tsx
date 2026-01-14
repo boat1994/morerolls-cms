@@ -1,15 +1,10 @@
 "use client";
 
 import { Service } from "@/payload-types";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"; // Assuming shadcn or similar, but actually I might not have Dialog available in this codebase? 
-// The user has `morerolls-cms` which implies typical Next.js project. 
-// I haven't seen shadcn installed actually. Best to build a custom modal using Radix or just pure React/Framer Motion to be safe since I don't want to assume dependencies.
-// User mentioned `ProjectGrid` used `motion` from `framer-motion`. I will use `framer-motion` for the modal.
-
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Check } from "lucide-react";
 import { useEffect } from "react";
-import { RichText } from "@payloadcms/richtext-lexical/react"; // Assuming lexical is used (config has `editor: lexicalEditor()`)
+
 
 type ServiceDetailModalProps = {
     service: Service | null;
@@ -88,7 +83,7 @@ export function ServiceDetailModal({ service, isOpen, onClose }: ServiceDetailMo
                                 {/* Deliverables */}
                                 {service.deliverables && service.deliverables.length > 0 && (
                                     <div>
-                                        <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-4">What's Included</h4>
+                                        <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-4">What&apos;s Included</h4>
                                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                             {service.deliverables.map((item, i) => (
                                                 <li key={i} className="flex items-start gap-3 text-sm text-neutral-700">

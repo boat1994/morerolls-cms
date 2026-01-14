@@ -93,9 +93,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'root-page-medias': RootPageMedia;
+    'about-page': AboutPage;
   };
   globalsSelect: {
     'root-page-medias': RootPageMediasSelect<false> | RootPageMediasSelect<true>;
+    'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
   };
   locale: null;
   user: User & {
@@ -472,6 +474,70 @@ export interface RootPageMedia {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page".
+ */
+export interface AboutPage {
+  id: number;
+  heroSection: {
+    showHeadline?: boolean | null;
+    headline: string;
+    showSubtext?: boolean | null;
+    subtext?: string | null;
+    textColor?: ('black' | 'white') | null;
+    coverImage?: (number | null) | Media;
+  };
+  philosophy?: {
+    title?: string | null;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  founder: {
+    name: string;
+    role?: string | null;
+    bio?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    portrait?: (number | null) | Media;
+    yearsActive?: number | null;
+  };
+  standards?:
+    | {
+        icon?: (number | null) | Media;
+        title?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "root-page-medias_select".
  */
 export interface RootPageMediasSelect<T extends boolean = true> {
@@ -497,6 +563,48 @@ export interface RootPageMediasSelect<T extends boolean = true> {
     | T
     | {
         logo?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page_select".
+ */
+export interface AboutPageSelect<T extends boolean = true> {
+  heroSection?:
+    | T
+    | {
+        showHeadline?: T;
+        headline?: T;
+        showSubtext?: T;
+        subtext?: T;
+        textColor?: T;
+        coverImage?: T;
+      };
+  philosophy?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+      };
+  founder?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        bio?: T;
+        portrait?: T;
+        yearsActive?: T;
+      };
+  standards?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
         id?: T;
       };
   updatedAt?: T;
