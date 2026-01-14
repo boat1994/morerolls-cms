@@ -1,12 +1,17 @@
 "use client";
 
 import { Service } from "@/payload-types";
-import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
 type ServiceCardProps = {
     service: Service;
     onViewDetails: (service: Service) => void;
+};
+
+const categoryLabels: Record<string, string> = {
+    'short-video': 'Short Video',
+    'presentation': 'Presentation & Corporate',
+    'ads': 'Advertisement',
 };
 
 export function ServiceCard({ service, onViewDetails }: ServiceCardProps) {
@@ -19,6 +24,13 @@ export function ServiceCard({ service, onViewDetails }: ServiceCardProps) {
             onClick={() => onViewDetails(service)}
             className="group relative bg-white border border-neutral-200 p-8 flex flex-col justify-between h-full hover:border-black transition-colors duration-300 cursor-pointer"
         >
+            {/* Category Tag */}
+            <div className="mb-4">
+                <span className="inline-block px-3 py-1 text-xs uppercase tracking-widest text-neutral-500 border border-neutral-200 rounded-full">
+                    {categoryLabels[service.category] || service.category}
+                </span>
+            </div>
+
             {/* Header */}
             <div className="mb-8">
                 <h3 className="text-2xl font-serif font-bold mb-3 group-hover:text-black transition-colors">

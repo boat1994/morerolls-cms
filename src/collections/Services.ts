@@ -17,6 +17,15 @@ export const Services: CollectionConfig = {
       label: 'Package Title',
     },
     {
+      name: 'thumbnail',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Thumbnail Image',
+      admin: {
+        description: 'Visual representation for this service (recommended: 16:9 aspect ratio)',
+      },
+    },
+    {
       name: 'category',
       type: 'select',
       required: true,
@@ -43,6 +52,15 @@ export const Services: CollectionConfig = {
       type: 'textarea',
       maxLength: 120,
       label: 'Highlight (Max 120 chars)',
+    },
+    {
+      name: 'recommendedFor',
+      type: 'textarea',
+      maxLength: 200,
+      label: 'Recommended For',
+      admin: {
+        placeholder: 'e.g., "Perfect for Luxury Brands" or "Ideal for Startups and SMEs"',
+      },
     },
     {
       name: 'price',
@@ -97,6 +115,9 @@ export const Services: CollectionConfig = {
           name: 'item',
           type: 'text',
           required: true,
+          admin: {
+            placeholder: 'e.g., "1x Master File (4K ProRes)" or "3 Rounds of Revisions"',
+          },
         },
       ],
     },

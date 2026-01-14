@@ -1,9 +1,10 @@
 "use client";
 
-import { Service } from "@/payload-types";
+import { Service, Media } from "@/payload-types";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Check } from "lucide-react";
 import { useEffect } from "react";
+import Image from "next/image";
 
 
 type ServiceDetailModalProps = {
@@ -29,6 +30,10 @@ export function ServiceDetailModal({ service, isOpen, onClose }: ServiceDetailMo
 
     const formattedPrice = service.price?.amount
         ? new Intl.NumberFormat("th-TH").format(service.price.amount)
+        : null;
+    
+    const thumbnailUrl = service.thumbnail && typeof service.thumbnail !== 'number' 
+        ? (service.thumbnail as Media).url 
         : null;
 
     return (
@@ -60,15 +65,36 @@ export function ServiceDetailModal({ service, isOpen, onClose }: ServiceDetailMo
                                 </button>
                             </div>
 
+                            {/* Thumbnail Image */}
+                            {thumbnailUrl && (
+                                <div className="relative w-full aspect-video">
+                                    <Image
+                                        src={thumbnailUrl}
+                                        alt={service.title}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                            )}
+
                             <div className="p-6 md:p-8 space-y-8">
+                                {/* Recommended For */}
+                                {service.recommendedFor && (
+                                    <div className="bg-neutral-50 border-l-2 border-neutral-300 px-4 py-3">
+                                        <p className="text-sm text-neutral-600 italic">
+                                            {service.recommendedFor}
+                                        </p>
+                                    </div>
+                                )}
+
                                 {/* Specs Table */}
                                 {service.specs && service.specs.length > 0 && (
                                     <div>
                                         <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-4">Specifications</h4>
-                                        <div className="border border-neutral-200 rounded-sm divide-y divide-neutral-200">
+                                        <div className="border border-neutral-200/60 rounded divide-y divide-neutral-200/40">
                                             {service.specs.map((spec, i) => (
                                                 <div key={i} className="flex text-sm">
-                                                    <div className="w-1/3 p-3 bg-neutral-50 font-medium text-neutral-600 border-r border-neutral-200">
+                                                    <div className="w-1/3 p-3 font-medium text-neutral-500 border-r border-neutral-200/40">
                                                         {spec.label}
                                                     </div>
                                                     <div className="w-2/3 p-3 text-black">
@@ -99,14 +125,6 @@ export function ServiceDetailModal({ service, isOpen, onClose }: ServiceDetailMo
                                 {service.conditions && (
                                     <div className="pt-6 border-t border-neutral-100">
                                         <div className="text-xs text-neutral-400 prose prose-sm max-w-none">
-                                           {/* Rendering rich text usually requires a serializer or helper component. 
-                                               Since I can't verify if RichText component is set up, I'll assume simple display or JSON stringify if needed. 
-                                               Actually let's just use JSON stringify for debugging if strict type, 
-                                               or if it's the Lexical structure, we need a serializer.
-                                               For now, I will omit complex rendering and just show a placeholder or basic text if possible.
-                                               Ideally use a helper like Payload's RichText parser if available.
-                                               I'll assume it's complex object. I'll just skip detailed rendering for now to avoid errors and note it.
-                                           */}
                                            <p className="italic">* Detailed terms and conditions available upon inquiry.</p>
                                         </div>
                                     </div>

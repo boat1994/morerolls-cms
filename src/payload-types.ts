@@ -191,12 +191,17 @@ export interface Project {
 export interface Service {
   id: number;
   title: string;
+  /**
+   * Visual representation for this service (recommended: 16:9 aspect ratio)
+   */
+  thumbnail?: (number | null) | Media;
   category: 'short-video' | 'presentation' | 'ads';
   /**
    * Used to sort services manually (Ascending)
    */
   order?: number | null;
   highlight?: string | null;
+  recommendedFor?: string | null;
   price: {
     amount: number;
     unit?: string | null;
@@ -375,9 +380,11 @@ export interface ProjectsSelect<T extends boolean = true> {
  */
 export interface ServicesSelect<T extends boolean = true> {
   title?: T;
+  thumbnail?: T;
   category?: T;
   order?: T;
   highlight?: T;
+  recommendedFor?: T;
   price?:
     | T
     | {
