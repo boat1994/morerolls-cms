@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Search } from "./Search";
@@ -14,6 +14,20 @@ export function Navbar() {
     const { scrollY } = useScroll();
     const pathname = usePathname();
     const isHeroContentPage = pathname === "/" || pathname === "/about" ;
+
+    const router = useRouter();
+    const [isPending, startTransition] = useTransition();
+
+    const handleNavigation = (href: string) => {
+        if (pathname === href) {
+            setIsOpen(false);
+            return;
+        }
+        setIsOpen(false);
+        startTransition(() => {
+            router.push(href);
+        });
+    };
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         if (latest > 50) {
@@ -43,6 +57,16 @@ export function Navbar() {
 
     return (
         <>
+            {isPending && (
+                <div className="fixed top-0 left-0 w-full h-1 bg-transparent z-[100]">
+                    <motion.div
+                        className="h-full bg-black"
+                        initial={{ width: "0%" }}
+                        animate={{ width: "100%" }}
+                        transition={{ duration: 2, ease: "easeInOut" }}
+                    />
+                </div>
+            )}
             <motion.nav
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
@@ -66,7 +90,7 @@ export function Navbar() {
 
                     {/* Mobile: Logo (Center Absolute) */}
                      <div className="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-                        <Link href="/" className="block" onClick={() => setIsOpen(false)}>
+                        <Link href="/" className="block" onClick={(e) => { e.preventDefault(); handleNavigation("/"); }}>
                             <div className="relative h-8 w-auto aspect-[3/1]">
                                 <Image
                                     src="/logo.avif"
@@ -90,7 +114,7 @@ export function Navbar() {
 
                      {/* Desktop: Logo (Left) */}
                     <div className="hidden md:block relative z-50 flex-none">
-                        <Link href="/" onClick={() => setIsOpen(false)}>
+                        <Link href="/" onClick={(e) => { e.preventDefault(); handleNavigation("/"); }}>
                             <div className="relative h-10 w-auto aspect-[3/1]">
                                 <Image
                                     src="/logo.avif"
@@ -105,10 +129,10 @@ export function Navbar() {
 
                     {/* Desktop: Navigation (Center) */}
                     <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8 lg:gap-12">
-                        <NavLink href="/projects" isScrolled={effectiveScrolled}>Projects</NavLink>
-                        <NavLink href="/services" isScrolled={effectiveScrolled}>Services</NavLink>
-                        <NavLink href="/about" isScrolled={effectiveScrolled}>About</NavLink>
-                        <NavLink href="/contact" isScrolled={effectiveScrolled}>Contact</NavLink>
+                        <NavLink href="/projects" isScrolled={effectiveScrolled} onClick={handleNavigation}>Projects</NavLink>
+                        <NavLink href="/services" isScrolled={effectiveScrolled} onClick={handleNavigation}>Services</NavLink>
+                        <NavLink href="/about" isScrolled={effectiveScrolled} onClick={handleNavigation}>About</NavLink>
+                        <NavLink href="/contact" isScrolled={effectiveScrolled} onClick={handleNavigation}>Contact</NavLink>
                     </div>
 
                     {/* Desktop: Search (Right) */}
@@ -132,10 +156,10 @@ export function Navbar() {
                         className="fixed inset-0 z-40 bg-white flex flex-col justify-center items-center md:hidden"
                     >
                         <div className="flex flex-col items-center gap-8 text-center">
-                            <MobileNavLink href="/projects" onClick={() => setIsOpen(false)}>Projects</MobileNavLink>
-                            <MobileNavLink href="/services" onClick={() => setIsOpen(false)}>Services</MobileNavLink>
-                            <MobileNavLink href="/about" onClick={() => setIsOpen(false)}>About</MobileNavLink>
-                            <MobileNavLink href="/contact" onClick={() => setIsOpen(false)}>Contact</MobileNavLink>
+                            <MobileNavLink href="/projects" onClick={() => handleNavigation("/projects")}>Projects</MobileNavLink>
+                            <MobileNavLink href="/services" onClick={() => handleNavigation("/services")}>Services</MobileNavLink>
+                            <MobileNavLink href="/about" onClick={() => handleNavigation("/about")}>About</MobileNavLink>
+                            <MobileNavLink href="/contact" onClick={() => handleNavigation("/contact")}>Contact</MobileNavLink>
                         </div>
                     </motion.div>
                 )}
@@ -144,10 +168,11 @@ export function Navbar() {
     );
 }
 
-function NavLink({ href, children, isScrolled }: { href: string; children: React.ReactNode; isScrolled: boolean }) {
+function NavLink({ href, children, isScrolled, onClick }: { href: string; children: React.ReactNode; isScrolled: boolean; onClick: (href: string) => void }) {
     return (
         <Link
             href={href}
+            onClick={(e) => { e.preventDefault(); onClick(href); }}
             className={`text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${isScrolled ? "text-black hover:text-neutral-600" : "text-white hover:text-white/80"
                 }`}
         >

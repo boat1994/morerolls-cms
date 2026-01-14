@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useTransition } from "react";
 import { Search as SearchIcon, X, Loader2 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { searchProjects, getProjectTypes } from "@/app/actions/search";
 import type { Project } from "@/payload-types";
 // import { useDebounce } from "@/lib/hooks/useDebounce"
@@ -31,6 +32,16 @@ export function Search() {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const debouncedQuery = useDebounceValue(query, 500);
+
+    const router = useRouter();
+    const pathname = usePathname();
+    const [isPending, startTransition] = useTransition();
+
+    useEffect(() => {
+        if (isOpen) {
+            setIsOpen(false);
+        }
+    }, [pathname]);
 
     useEffect(() => {
         if (isOpen) {
@@ -83,8 +94,18 @@ export function Search() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 bg-white z-[60] flex flex-col"
+                        className="fixed inset-0 bg-white/95 backdrop-blur-sm z-[60] flex flex-col"
                     >
+                        {isPending && (
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gray-100 z-50">
+                                <motion.div
+                                    className="h-full bg-black"
+                                    initial={{ width: "0%" }}
+                                    animate={{ width: "100%" }}
+                                    transition={{ duration: 2, ease: "easeInOut" }} // Fake progress look
+                                />
+                            </div>
+                        )}
                         {/* Header */}
                         <div className="flex items-center justify-between p-4 border-b border-gray-100 h-20">
                              <div className="flex-1 max-w-2xl mx-auto flex items-center gap-4">
@@ -129,8 +150,17 @@ export function Search() {
                                                     <Link
                                                         key={project.id}
                                                         href={`/projects/${project.slug}`}
-                                                        onClick={handleClose}
-                                                        className="block p-4 -mx-4 hover:bg-gray-50 rounded-xl transition-colors group"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            if (pathname === `/projects/${project.slug}`) {
+                                                                handleClose();
+                                                                return;
+                                                            }
+                                                            startTransition(() => {
+                                                                router.push(`/projects/${project.slug}`);
+                                                            });
+                                                        }}
+                                                        className="block p-4 -mx-4 hover:bg-gray-50 rounded-xl transition-colors group cursor-pointer relative"
                                                     >
                                                         <span className="text-lg font-medium text-black group-hover:text-black transition-colors">
                                                             {project.title}
