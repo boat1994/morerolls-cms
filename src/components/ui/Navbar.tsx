@@ -23,7 +23,8 @@ export function Navbar() {
             setIsOpen(false);
             return;
         }
-        setIsOpen(false);
+        // Don't close immediately. Wait for pathname change (effect below)
+        // setIsOpen(false); 
         startTransition(() => {
             router.push(href);
         });
@@ -36,6 +37,11 @@ export function Navbar() {
             setIsScrolled(false);
         }
     });
+
+    // Close mobile menu (and search) when pathname changes (navigation completes)
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
 
     // Prevent scrolling when mobile menu is open
     useEffect(() => {

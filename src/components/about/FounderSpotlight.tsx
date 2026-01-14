@@ -46,13 +46,13 @@ export function FounderSpotlight({ name, role, bio, portrait, yearsActive }: Fou
 
                     {/* Text Side (Right on Desktop) */}
                     <div>
-                        <div className="mb-8">
-                             <h3 className="text-3xl md:text-5xl font-bold text-black mb-2">{name}</h3>
-                             <p className="text-lg text-neutral-500 font-medium ">{role}</p>
+                        <div className="mb-8 md:mb-10">
+                             <h3 className="text-3xl md:text-5xl font-bold text-black mb-3">{name}</h3>
+                             <p className="text-xl text-neutral-500 font-medium tracking-tight">{role}</p>
                         </div>
 
                         {bio && (
-                            <div className="prose prose-neutral text-neutral-600 leading-relaxed">
+                            <div className="prose prose-lg prose-neutral text-neutral-600 leading-relaxed">
                                 <RichText data={bio} />
                             </div>
                         )}
