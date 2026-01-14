@@ -5,7 +5,6 @@ import { Container } from "@/components/ui/Container";
 
 import { Project } from "@/payload-types";
 
-export const dynamic = 'force-dynamic'
 
 export default async function ProjectsPage() {
     const payload = await getPayload({ config: configPromise });

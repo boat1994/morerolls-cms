@@ -75,19 +75,8 @@ export const POST = async () => {
                     unit: 'Project',
                     isStartingAt: true
                 },
-                highlight: 'ถ่ายทอดวิสัยทัศน์และภาพลักษณ์องค์กรอย่างมืออาชีพ เพื่อสร้างความน่าเชื่อถือและความประทับใจระดับสากล',
+                highlight: 'Comprehensive corporate identity storytelling.',
                 recommendedFor: 'Companies rebranding or launching new initiatives.',
-                specs: [
-                    { label: 'Duration', value: '3 - 5 Minutes' },
-                    { label: 'Resolution', value: '4K Master' },
-                    { label: 'Timeline', value: '30 - 45 Business Days' },
-                ],
-                deliverables: [
-                    { item: '1x Corporate Brand Film (Storytelling focus)' },
-                    { item: 'Professional Executive Interview Setup & Lighting' },
-                    { item: 'Premium Motion Graphics & Infographics' },
-                    { item: 'Professional Voiceover (Thai or English)' },
-                ]
             }
         })
 
@@ -101,19 +90,8 @@ export const POST = async () => {
                     unit: 'Campaign',
                     isStartingAt: true
                 },
-                highlight: 'สร้าง Impact สูงสุดให้กับแคมเปญโฆษณา ด้วยงานโปรดักชันระดับ Cinema ที่เน้นการสร้างยอดขายและการจดจำแบรนด์',
+                highlight: 'Full-scale commercial advertisement production.',
                 recommendedFor: 'Major product launches and brand awareness.',
-                specs: [
-                    { label: 'Duration', value: '15 - 30 Seconds (Multi-cut)' },
-                    { label: 'Resolution', value: 'Cinema Grade (RAW/Log)' },
-                    { label: 'Format', value: 'Multi-platform Optimized (16:9, 9:16, 1:1)' },
-                ],
-                deliverables: [
-                    { item: '1x Main Commercial Master (TVC Quality)' },
-                    { item: '3x Social Media Cut-downs (15s, 6s) for Ads' },
-                    { item: 'Full Production Team & Cinema Standard Equipment' },
-                    { item: 'Advanced Color Science & Custom Sound Design' },
-                ]
             }
         })
         console.log('Services seeded.')

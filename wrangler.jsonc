@@ -13,7 +13,7 @@
       "binding": "D1",
       "database_id": "b83d1ac7-8536-4f7c-a9b9-5975192f5fda",
       "database_name": "morerolls",
-      "remote": true,
+      "remote": true ,
     },
   ],
   "r2_buckets": [
@@ -31,7 +31,7 @@
           "binding": "D1",
           "database_id": "644bb64c-425b-4731-bf66-0986eb3745f9",
           "database_name": "morerolls-dev",
-          "remote": true,
+          "remote": false,
         },
       ],
       "r2_buckets": [
