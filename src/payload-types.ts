@@ -179,6 +179,11 @@ export interface Project {
   id: number;
   title: string;
   slug: string;
+  /**
+   * Set the order for sorting (ascending)
+   */
+  order?: number | null;
+  isFeatured?: boolean | null;
   client?: string | null;
   year?: string | null;
   services?: string | null;
@@ -369,6 +374,8 @@ export interface MediaSelect<T extends boolean = true> {
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  order?: T;
+  isFeatured?: T;
   client?: T;
   year?: T;
   services?: T;

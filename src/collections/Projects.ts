@@ -4,6 +4,7 @@ export const Projects: CollectionConfig = {
   slug: 'projects',
   admin: {
     useAsTitle: 'title',
+    defaultColumns: ['title', 'slug', 'order', 'isFeatured', 'createdAt'],
   },
   fields: [
     {
@@ -21,6 +22,23 @@ export const Projects: CollectionConfig = {
       },
     },
     {
+      name: 'order',
+      type: 'number',
+      admin: {
+        position: 'sidebar',
+        description: 'Set the order for sorting (ascending)',
+      },
+    },
+    {
+      name: 'isFeatured',
+      type: 'checkbox',
+      label: 'Feature on Homepage',
+      admin: {
+        position: 'sidebar',
+      },
+      defaultValue: false,
+    },
+    {
       name: 'client',
       type: 'text',
     },
@@ -30,7 +48,7 @@ export const Projects: CollectionConfig = {
     },
     {
       name: 'services',
-      type: 'text', 
+      type: 'text',
       label: 'Services (e.g., Event Coverage, Editing)',
     },
     {
