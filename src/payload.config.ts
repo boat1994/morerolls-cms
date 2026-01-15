@@ -15,6 +15,7 @@ import { RootPageMedias } from './globals/RootPageMedias'
 import { AboutPage } from './globals/AboutPage'
 import { General } from './globals/General'
 import { ContactPage } from './globals/ContactPage'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,7 +42,10 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: sqliteD1Adapter({ binding: cloudflare.env.D1 }),
+  db: sqliteD1Adapter({
+    binding: cloudflare.env.D1,
+    migrationDir: path.resolve(dirname, 'migrations'),
+  }),
   plugins: [
     r2Storage({
       bucket: cloudflare.env.R2,
@@ -56,7 +60,7 @@ function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
     ({ getPlatformProxy }) =>
       getPlatformProxy({
         environment: process.env.CLOUDFLARE_ENV,
-        remoteBindings: isProduction && !isCLI,
+        remoteBindings: isProduction,
       } satisfies GetPlatformProxyOptions),
   )
 }

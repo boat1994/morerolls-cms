@@ -147,8 +147,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`created_at\` text
   );
   `)
-  await db.run(sql`ALTER TABLE \`payload_locked_documents_rels\` ADD \`services_id\` integer REFERENCES services(id);`)
-  await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_services_id_idx\` ON \`payload_locked_documents_rels\` (\`services_id\`);`)
+  try {
+    await db.run(sql`ALTER TABLE \`payload_locked_documents_rels\` ADD \`services_id\` integer REFERENCES services(id);`)
+    await db.run(sql`CREATE INDEX \`payload_locked_documents_rels_services_id_idx\` ON \`payload_locked_documents_rels\` (\`services_id\`);`)
+  } catch (error) {
+    // Column or index might already exist from a previous partial migration
+    console.log('Skipping services_id column/index creation - likely already exists')
+  }
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
