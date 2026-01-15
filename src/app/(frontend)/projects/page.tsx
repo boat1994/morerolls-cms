@@ -16,7 +16,7 @@ export default async function ProjectsPage() {
     <main className="bg-white min-h-screen pt-24 pb-20">
       <Container>
         <h1 className="text-4xl md:text-6xl font-bold mb-12 text-black uppercase tracking-tighter">
-          Selected Projects
+         Films
         </h1>
       </Container>
       <ProjectGrid projects={projects.docs as Project[]} />

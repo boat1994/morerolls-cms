@@ -5,6 +5,7 @@ import { ClientLogos } from "@/components/home/ClientLogos";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { VideoSource } from "@/components/home/HeroVideo";
+import { Project } from "@/payload-types";
 
 export default async function Home() {
   const payload = await getPayload({ config: configPromise });
@@ -29,7 +30,7 @@ export default async function Home() {
       />
       <ClientLogos logos={clientLogos} />
       <div className="py-20">
-        <ProjectGrid projects={projects.docs} />
+      <ProjectGrid projects={projects.docs as Project[]} />
       </div>
     </main>
   );
