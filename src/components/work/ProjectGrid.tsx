@@ -43,7 +43,6 @@ export function ProjectGrid({ className, projects, ...props }: ProjectGridProps)
                           src={posterUrl}
                           alt={project.title}
                           fill
-                          priority={projects.indexOf(project) < 2}
                           unoptimized={true}
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
