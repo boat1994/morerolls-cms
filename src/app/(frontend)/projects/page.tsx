@@ -15,9 +15,12 @@ export default async function ProjectsPage() {
   return (
     <main className="bg-white min-h-screen pt-24 pb-20">
       <Container>
-        <h1 className="text-4xl md:text-6xl font-bold mb-12 text-black uppercase tracking-tighter">
+        <div className="mb-12 mt-4">
+        <h1 className="text-4xl md:text-6xl font-bold mb-6 text-black uppercase tracking-tighter">
          Films
         </h1>
+         <p className="text-lg text-black">Cinematic works by More Rolls</p>
+        </div>
       </Container>
       <ProjectGrid projects={projects.docs as Project[]} />
     </main>
