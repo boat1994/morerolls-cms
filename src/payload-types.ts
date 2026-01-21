@@ -471,11 +471,13 @@ export interface RootPageMedia {
       type: 'upload' | 'youtube';
       url?: string | null;
       file?: (number | null) | Media;
+      poster: number | Media;
     };
     mobile: {
       type: 'upload' | 'youtube';
       url?: string | null;
       file?: (number | null) | Media;
+      poster: number | Media;
     };
   };
   clientLogos?:
@@ -604,6 +606,7 @@ export interface RootPageMediasSelect<T extends boolean = true> {
               type?: T;
               url?: T;
               file?: T;
+              poster?: T;
             };
         mobile?:
           | T
@@ -611,6 +614,7 @@ export interface RootPageMediasSelect<T extends boolean = true> {
               type?: T;
               url?: T;
               file?: T;
+              poster?: T;
             };
       };
   clientLogos?:

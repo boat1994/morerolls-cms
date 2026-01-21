@@ -49,6 +49,13 @@ export const RootPageMedias: GlobalConfig = {
                 condition: (data, siblingData) => siblingData?.type === 'upload',
               },
             },
+            {
+              name: 'poster',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Poster Image (LCP)',
+              required: true,
+            },
           ],
         },
         {
@@ -88,6 +95,13 @@ export const RootPageMedias: GlobalConfig = {
               admin: {
                 condition: (data, siblingData) => siblingData?.type === 'upload',
               },
+            },
+            {
+              name: 'poster',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Poster Image (LCP)',
+              required: true,
             },
           ],
         },

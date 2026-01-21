@@ -7,13 +7,15 @@ import configPromise from "@payload-config";
 import { VideoSource } from "@/components/home/HeroVideo";
 import { Project } from "@/payload-types";
 
-export default async function Home() {
+export default async function Page() {
   const payload = await getPayload({ config: configPromise });
   const rootMedia = await payload.findGlobal({
     slug: "root-page-medias",
     depth: 5,
   });
 
+  // Artificial delay removed
+  
   const projects = await payload.find({
     collection: "projects",
     limit: 12, // Limit to 12 projects for performance

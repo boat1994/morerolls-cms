@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Container } from "@/components/ui/Container";
-import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 export type VideoType = "upload" | "youtube";
 
@@ -10,6 +11,7 @@ export interface VideoSource {
   type: VideoType;
   url?: string | null;
   file?: Media | number | null;
+  poster?: Media | number | null;
 }
 
 export interface HeroVideoProps {
@@ -32,6 +34,7 @@ const DEFAULT_VIDEO: VideoSource = {
     createdAt: "",
     url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
   } as Media,
+  poster: null,
 };
 
 export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
@@ -57,17 +60,39 @@ export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
     return null;
   };
 
+  const getPosterUrl = (source?: VideoSource) => {
+    if (source?.poster && typeof source.poster !== "number") {
+        return source.poster.url;
+    }
+    return null;
+  };
+
   const url = getUrl(activeSource);
+  const posterUrl = getPosterUrl(activeSource);
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-white">
       {/* Background Video */}
       <div className="absolute inset-0 z-0 select-none bg-black">
+        {/* Poster Image (LCP Element) */}
+        {posterUrl && (
+            <Image
+                src={posterUrl}
+                alt="Hero Video Poster"
+                fill
+                priority={true}
+                placeholder="empty"
+                quality={85}
+                className="object-cover z-0"
+                unoptimized={true}
+            />
+        )}
+
         <div className="absolute inset-0 bg-black/20 z-10" />
         
         {isMounted && activeSource && url ? (
           activeSource.type === "youtube" ? (
-            <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full">
+            <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.77vh] h-[56.25vw] min-w-full min-h-full fade-in-0 duration-1000">
                <ReactPlayer
                 url={url}
                 playing={true}
@@ -96,15 +121,12 @@ export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
               webkit-playsinline="true"
               disablePictureInPicture
               disableRemotePlayback
-              className="w-full h-full object-cover pointer-events-none"
+              className="w-full h-full object-cover pointer-events-none fade-in-0 duration-1000"
             >
               <source src={url} type="video/mp4" />
             </video>
           )
-        ) : (
-             // Fallback or loading state if needed, or keeping the black background
-             null
-        )}
+        ) : null}
       </div>
 
       {/* Content Overlay */}
