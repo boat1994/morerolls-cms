@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Container } from "@/components/ui/Container";
 import { motion } from "framer-motion";
 
@@ -37,12 +37,21 @@ const DEFAULT_VIDEO: VideoSource = {
   poster: null,
 };
 
+type VideoStatus = 'loading' | 'playing' | 'error';
+
 export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [isMounted, setIsMounted] = useState(false);
+  const [videoStatus, setVideoStatus] = useState<VideoStatus>('loading');
+  const [isIOS, setIsIOS] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
+    
+    // Detect iOS
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+    setIsIOS(iOS);
   }, []);
 
   // Logic to determine which video to show
@@ -70,6 +79,31 @@ export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
   const url = getUrl(activeSource);
   const posterUrl = getPosterUrl(activeSource);
 
+  // iOS-specific video loading logic
+  useEffect(() => {
+    if (isIOS && videoRef.current && url && activeSource.type === 'upload') {
+      const video = videoRef.current;
+      
+      // Load the video
+      video.load();
+      
+      // Attempt to play
+      const playPromise = video.play();
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('✅ Video autoplay succeeded on iOS');
+            setVideoStatus('playing');
+          })
+          .catch((error) => {
+            console.error('❌ Video autoplay failed on iOS:', error);
+            setVideoStatus('error');
+          });
+      }
+    }
+  }, [url, isIOS, activeSource.type]);
+
   return (
     <section className="relative h-screen w-full overflow-hidden bg-white">
       {/* Background Video */}
@@ -83,7 +117,9 @@ export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
                 priority={true}
                 placeholder="empty"
                 quality={85}
-                className="object-cover z-0"
+                className={`object-cover z-0 transition-opacity duration-500 ${
+                  videoStatus === 'playing' ? 'opacity-0' : 'opacity-100'
+                }`}
                 unoptimized={true}
             />
         )}
@@ -114,19 +150,42 @@ export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
             </div>
           ) : (
             <video
+              ref={videoRef}
               autoPlay
               muted
               loop
               playsInline
-              webkit-playsinline="true"
               disablePictureInPicture
               disableRemotePlayback
+              onLoadedData={() => {
+                console.log('📹 Video loaded successfully');
+                setVideoStatus('playing');
+              }}
+              onCanPlay={() => {
+                console.log('▶️ Video can play');
+                setVideoStatus('playing');
+              }}
+              onError={(e) => {
+                console.error('❌ Video error:', e);
+                setVideoStatus('error');
+              }}
+              onPlay={() => {
+                console.log('🎬 Video started playing');
+              }}
               className="absolute inset-0 w-full h-full object-cover pointer-events-none duration-1000 ease-in-out"
             >
               <source src={url} type="video/mp4" />
+              Your browser does not support the video tag.
             </video>
           )
         ) : null}
+
+        {/* Error Fallback - keep poster visible */}
+        {videoStatus === 'error' && posterUrl && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center">
+            <p className="text-white/50 text-sm">Video unavailable</p>
+          </div>
+        )}
       </div>
 
       {/* Content Overlay */}
