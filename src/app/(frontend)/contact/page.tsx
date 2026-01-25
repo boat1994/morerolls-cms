@@ -2,19 +2,28 @@ import { Container } from "@/components/ui/Container";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { ContactPage as ContactPageType } from "@/payload-types";
+import { unstable_cache } from "next/cache";
+
+export const revalidate = 60; // ISR - revalidate every 60 seconds
+
+const getContactData = unstable_cache(
+    async () => {
+        try {
+            const payload = await getPayload({ config: configPromise });
+            return await payload.findGlobal({
+                slug: "contact-page",
+            }) as ContactPageType;
+        } catch (e) {
+            console.error("Failed to fetch contact page data", e);
+            return null;
+        }
+    },
+    ['contact-page'],
+    { revalidate: 60, tags: ['contact-page'] }
+);
 
 export default async function ContactPage() {
-    const payload = await getPayload({ config: configPromise });
-    let contactData: ContactPageType | null = null;
-    
-    try {
-        contactData = await payload.findGlobal({
-            slug: "contact-page",
-        }) as ContactPageType;
-    } catch (e) {
-        console.error("Failed to fetch contact page data", e);
-    }
-
+    const contactData = await getContactData();
     const { headline, email, phone, visitUs } = contactData || {};
 
     return (

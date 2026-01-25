@@ -6,21 +6,38 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { VideoSource } from "@/components/home/HeroVideo";
 import { Project } from "@/payload-types";
+import { unstable_cache } from "next/cache";
+
+export const revalidate = 60; // ISR - revalidate every 60 seconds
+
+const getRootMedia = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config: configPromise });
+    return await payload.findGlobal({
+      slug: "root-page-medias",
+      depth: 5,
+    });
+  },
+  ['root-media'],
+  { revalidate: 60, tags: ['root-media'] }
+);
+
+const getHomeProjects = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config: configPromise });
+    return await payload.find({
+      collection: "projects",
+      limit: 12,
+      sort: 'order',
+    });
+  },
+  ['home-projects'],
+  { revalidate: 60, tags: ['projects'] }
+);
 
 export default async function Page() {
-  const payload = await getPayload({ config: configPromise });
-  const rootMedia = await payload.findGlobal({
-    slug: "root-page-medias",
-    depth: 5,
-  });
-
-  // Artificial delay removed
-  
-  const projects = await payload.find({
-    collection: "projects",
-    limit: 12, // Limit to 12 projects for performance
-    sort: 'order',
-  });
+  const rootMedia = await getRootMedia();
+  const projects = await getHomeProjects();
 
   const heroVideo = rootMedia?.heroVideo;
   const clientLogos = rootMedia?.clientLogos || [];
