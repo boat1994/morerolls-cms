@@ -94,7 +94,7 @@ export function Search() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 bg-white/95 backdrop-blur-sm z-[60] flex flex-col"
+                        className="fixed inset-0 bg-white/95 backdrop-blur-sm z-[60] flex flex-col text-black"
                     >
                         {isPending && (
                             <div className="absolute top-0 left-0 w-full h-1 bg-gray-100 z-50">

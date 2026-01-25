@@ -49,7 +49,7 @@ export default async function Page() {
         mobile={heroVideo?.mobile as VideoSource | undefined}
       />
       <ClientLogos logos={clientLogos} />
-      <div className="py-10">
+      <div>
       <div className="mb-12 mt-4 ml-4">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-black uppercase tracking-tighter">
          Films
