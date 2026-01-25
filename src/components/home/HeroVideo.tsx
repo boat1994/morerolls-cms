@@ -121,7 +121,7 @@ export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
               webkit-playsinline="true"
               disablePictureInPicture
               disableRemotePlayback
-              className="w-full h-full object-cover pointer-events-none fade-in-0 duration-1000"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none duration-1000 ease-in-out"
             >
               <source src={url} type="video/mp4" />
             </video>

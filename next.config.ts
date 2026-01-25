@@ -42,6 +42,14 @@ const nextConfig: NextConfig = {
 
     return webpackConfig
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '30mb',
+    },
+    // Prevent 10MB warning for middleware/generic requests
+    // @ts-ignore
+    middlewareClientMaxBodySize: '30mb', 
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
