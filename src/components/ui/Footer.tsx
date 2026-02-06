@@ -17,7 +17,7 @@ export async function Footer() {
         console.error("Failed to fetch general settings", e);
     }
 
-    const { footerText, socialLinks } = generalData || {};
+    const { footerText, socialLinks, footerSubDescription } = generalData || {};
     const year = new Date().getFullYear();
 
     return (
@@ -32,8 +32,15 @@ export async function Footer() {
                         Actually, let's treat footerText as the branding part.
                         If strict hide: 
                      */}
-                    <div className="text-sm font-medium tracking-widest uppercase">
-                        &copy; {year} {footerText || "Morerolls Studio"}
+                    <div className="flex flex-col gap-2">
+                        <div className="text-sm font-medium tracking-widest uppercase">
+                            &copy; {year} {footerText || "Morerolls Studio"}
+                        </div>
+                        {footerSubDescription && (
+                            <div className="text-xs text-neutral-500 whitespace-pre-wrap max-w-md">
+                                {footerSubDescription}
+                            </div>
+                        )}
                     </div>
 
                     {/* Social Links */}

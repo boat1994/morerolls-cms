@@ -51,7 +51,7 @@ export default async function Page() {
       />
       <ClientLogos logos={clientLogos} />
     <Container className="pt-4">
-      <div className="mb-12 mt-4 ml-4">
+      <div className="mb-12 mt-4">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-black uppercase tracking-tighter">
          Films
         </h1>

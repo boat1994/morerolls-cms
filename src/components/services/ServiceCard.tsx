@@ -15,7 +15,7 @@ const categoryLabels: Record<string, string> = {
 };
 
 export function ServiceCard({ service, onViewDetails }: ServiceCardProps) {
-    const formattedPrice = service.price?.amount
+    const formattedPrice = service.price?.amount && !service.price?.hidePricing
         ? new Intl.NumberFormat("th-TH").format(service.price.amount)
         : null;
 
@@ -46,25 +46,27 @@ export function ServiceCard({ service, onViewDetails }: ServiceCardProps) {
             {/* Bottom Section */}
             <div>
                 {/* Price */}
-                <div className="mb-8 font-sans">
-                    {service.price?.isStartingAt && (
-                        <span className="block text-xs uppercase tracking-wider text-neutral-400 mb-1">
-                            Starts at
-                        </span>
-                    )}
-                    <div className="flex items-baseline gap-1">
-                        {formattedPrice ? (
-                            <>
-                                <span className="text-lg font-medium">฿{formattedPrice}</span>
-                                {service.price.unit && (
-                                    <span className="text-sm text-neutral-400">/ {service.price.unit}</span>
-                                )}
-                            </>
-                        ) : (
-                            <span className="text-sm text-neutral-500">Contact for pricing</span>
+                {!service.price?.hidePricing && (
+                    <div className="mb-8 font-sans">
+                        {service.price?.isStartingAt && (
+                            <span className="block text-xs uppercase tracking-wider text-neutral-400 mb-1">
+                                Starts at
+                            </span>
                         )}
+                        <div className="flex items-baseline gap-1">
+                            {formattedPrice ? (
+                                <>
+                                    <span className="text-lg font-medium">฿{formattedPrice}</span>
+                                    {service.price.unit && (
+                                        <span className="text-sm text-neutral-400">/ {service.price.unit}</span>
+                                    )}
+                                </>
+                            ) : (
+                                <span className="text-sm text-neutral-500">Contact for pricing</span>
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 {/* Ghost Button */}
                 <button

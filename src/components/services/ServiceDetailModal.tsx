@@ -28,7 +28,7 @@ export function ServiceDetailModal({ service, isOpen, onClose }: ServiceDetailMo
 
     if (!service) return null;
 
-    const formattedPrice = service.price?.amount
+    const formattedPrice = service.price?.amount && !service.price?.hidePricing
         ? new Intl.NumberFormat("th-TH").format(service.price.amount)
         : null;
     
@@ -134,13 +134,15 @@ export function ServiceDetailModal({ service, isOpen, onClose }: ServiceDetailMo
                             {/* Footer / CTA */}
                             <div className="sticky bottom-0 bg-white border-t border-neutral-100 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
                                 <div className="text-center md:text-left">
-                                     {formattedPrice ? (
-                                        <div className="flex items-baseline gap-1">
-                                            {service.price?.isStartingAt && <span className="text-xs text-neutral-400 uppercase">Starts at</span>}
-                                            <span className="text-xl font-bold">฿{formattedPrice}</span>
-                                        </div>
-                                     ) : (
-                                        <span className="text-sm text-neutral-500">Custom Pricing</span>
+                                     {!service.price?.hidePricing && (
+                                         formattedPrice ? (
+                                             <div className="flex items-baseline gap-1">
+                                                 {service.price?.isStartingAt && <span className="text-xs text-neutral-400 uppercase">Starts at</span>}
+                                                 <span className="text-xl font-bold">฿{formattedPrice}</span>
+                                             </div>
+                                         ) : (
+                                             <span className="text-sm text-neutral-500">Custom Pricing</span>
+                                         )
                                      )}
                                 </div>
                                 <button className="w-full md:w-auto px-8 py-3 bg-black text-white text-sm font-bold uppercase tracking-widest hover:bg-neutral-800 transition-colors">

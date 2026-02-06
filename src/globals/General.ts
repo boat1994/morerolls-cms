@@ -17,6 +17,14 @@ export const General: GlobalConfig = {
       },
     },
     {
+      name: 'footerSubDescription',
+      type: 'textarea',
+      label: 'Footer Sub-Description',
+      admin: {
+        description: 'Text displayed below the copyright text. Smaller font. Supports multiple lines.',
+      },
+    },
+    {
       name: 'socialLinks',
       type: 'array',
       label: 'Social Media Links',

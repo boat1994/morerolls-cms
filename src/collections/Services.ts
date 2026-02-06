@@ -85,6 +85,12 @@ export const Services: CollectionConfig = {
           defaultValue: false,
           label: 'Show "Starts at"',
         },
+        {
+          name: 'hidePricing',
+          type: 'checkbox',
+          defaultValue: false,
+          label: 'Hide Pricing',
+        },
       ],
     },
     {

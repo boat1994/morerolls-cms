@@ -215,6 +215,7 @@ export interface Service {
     amount: number;
     unit?: string | null;
     isStartingAt?: boolean | null;
+    hidePricing?: boolean | null;
   };
   specs?:
     | {
@@ -402,6 +403,7 @@ export interface ServicesSelect<T extends boolean = true> {
         amount?: T;
         unit?: T;
         isStartingAt?: T;
+        hidePricing?: T;
       };
   specs?:
     | T
@@ -566,6 +568,10 @@ export interface General {
    * Text displayed after the copyright year (e.g., "Morerolls Studio")
    */
   footerText?: string | null;
+  /**
+   * Text displayed below the copyright text. Smaller font. Supports multiple lines.
+   */
+  footerSubDescription?: string | null;
   socialLinks?:
     | {
         label: string;
@@ -675,6 +681,7 @@ export interface AboutPageSelect<T extends boolean = true> {
  */
 export interface GeneralSelect<T extends boolean = true> {
   footerText?: T;
+  footerSubDescription?: T;
   socialLinks?:
     | T
     | {
