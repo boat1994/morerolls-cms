@@ -1,12 +1,13 @@
 
 import { HeroVideo } from "@/components/home/HeroVideo";
-import { ProjectGrid } from "@/components/work/ProjectGrid";
+import { ProjectGrid } from '@/components/projects/ProjectGrid'
 import { ClientLogos } from "@/components/home/ClientLogos";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { VideoSource } from "@/components/home/HeroVideo";
 import { Project } from "@/payload-types";
 import { unstable_cache } from "next/cache";
+import { Container } from '@/components/ui/Container'
 
 export const revalidate = 60; // ISR - revalidate every 60 seconds
 
@@ -49,7 +50,7 @@ export default async function Page() {
         mobile={heroVideo?.mobile as VideoSource | undefined}
       />
       <ClientLogos logos={clientLogos} />
-      <div>
+    <Container className="pt-4">
       <div className="mb-12 mt-4 ml-4">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-black uppercase tracking-tighter">
          Films
@@ -67,7 +68,7 @@ export default async function Page() {
           View All Projects
         </a>
       </div>
-      </div>
+      </Container>
     </main>
   );
 }

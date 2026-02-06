@@ -84,7 +84,7 @@ export function Navbar() {
                     {/* --- MOBILE LAYOUT --- */}
                     
                     {/* Mobile: Hamburger Button (Left) */}
-                     <div className="flex items-center justify-start md:hidden z-50">
+                     <div className="flex items-center justify-start z-50">
                         <button
                             className={`p-2 -ml-2 transition-colors duration-300 ${textColorClass}`}
                             onClick={() => setIsOpen(!isOpen)}
@@ -95,7 +95,7 @@ export function Navbar() {
                     </div>
 
                     {/* Mobile: Logo (Center Absolute) */}
-                     <div className="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+                     <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
                         <Link href="/" className="block" onClick={(e) => { e.preventDefault(); handleNavigation("/"); }}>
                             <div className="relative h-8 w-auto aspect-[3/1]">
                                 <Image
@@ -110,43 +110,13 @@ export function Navbar() {
                     </div>
 
                     {/* Mobile: Search (Right) */}
-                    <div className="flex items-center justify-end md:hidden z-50">
+                    <div className="flex items-center justify-end z-50">
                          <div className={`${textColorClass}`}>
                             <Search />
                         </div>
                     </div>
 
-                     {/* --- DESKTOP LAYOUT --- */}
-
-                     {/* Desktop: Logo (Left) */}
-                    <div className="hidden md:block relative z-50 flex-none">
-                        <Link href="/" onClick={(e) => { e.preventDefault(); handleNavigation("/"); }}>
-                            <div className="relative h-10 w-auto aspect-[3/1]">
-                                <Image
-                                    src="/logo.avif"
-                                    alt="Morerolls Studio"
-                                    fill
-                                    className={`object-contain object-left transition-all duration-300 ${logoBrightnessClass}`}
-                                    priority
-                                />
-                            </div>
-                        </Link>
-                    </div>
-
-                    {/* Desktop: Navigation (Center) */}
-                    <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8 lg:gap-12">
-                        <NavLink href="/projects" isScrolled={effectiveScrolled} onClick={handleNavigation}>Projects</NavLink>
-                        <NavLink href="/services" isScrolled={effectiveScrolled} onClick={handleNavigation}>Services</NavLink>
-                        <NavLink href="/about" isScrolled={effectiveScrolled} onClick={handleNavigation}>About</NavLink>
-                        <NavLink href="/contact" isScrolled={effectiveScrolled} onClick={handleNavigation}>Contact</NavLink>
-                    </div>
-
-                    {/* Desktop: Search (Right) */}
-                     <div className="hidden md:flex items-center justify-end gap-8 lg:gap-12 flex-none">
-                         <div className={`${effectiveScrolled ? "text-black" : "text-white"}`}>
-                            <Search />
-                        </div>
-                    </div>
+                    {/* Desktop Layout Removed */}
 
                 </div>
             </motion.nav>
@@ -159,7 +129,7 @@ export function Navbar() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-40 bg-white flex flex-col justify-center items-center md:hidden"
+                        className="fixed inset-0 z-40 bg-white flex flex-col justify-center items-center"
                     >
                         <div className="flex flex-col items-center gap-8 text-center">
                             <MobileNavLink href="/projects" onClick={() => handleNavigation("/projects")}>Projects</MobileNavLink>
@@ -174,18 +144,7 @@ export function Navbar() {
     );
 }
 
-function NavLink({ href, children, isScrolled, onClick }: { href: string; children: React.ReactNode; isScrolled: boolean; onClick: (href: string) => void }) {
-    return (
-        <Link
-            href={href}
-            onClick={(e) => { e.preventDefault(); onClick(href); }}
-            className={`text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${isScrolled ? "text-black hover:text-neutral-600" : "text-white hover:text-white/80"
-                }`}
-        >
-            {children}
-        </Link>
-    );
-}
+
 
 function MobileNavLink({ href, children, onClick }: { href: string; children: React.ReactNode; onClick: () => void }) {
     return (
