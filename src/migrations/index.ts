@@ -7,7 +7,7 @@ import * as migration_20260115_065130 from './20260115_065130';
 import * as migration_20260115_084733_seed_default_globals from './20260115_084733_seed_default_globals';
 import * as migration_20260125_122000_add_root_media_posters from './20260125_122000_add_root_media_posters';
 import * as migration_20260206_062617 from './20260206_062617';
-
+import * as migration_20260220_054728 from './20260220_054728';
 
 export const migrations = [
   {
@@ -54,5 +54,10 @@ export const migrations = [
     up: migration_20260206_062617.up,
     down: migration_20260206_062617.down,
     name: '20260206_062617',
+  },
+  {
+    up: migration_20260220_054728.up,
+    down: migration_20260220_054728.down,
+    name: '20260220_054728'
   },
 ];
