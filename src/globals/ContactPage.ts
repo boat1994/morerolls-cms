@@ -13,6 +13,7 @@ export const ContactPage: GlobalConfig = {
       label: 'Main Headline',
       required: true,
       defaultValue: "Let's Create Something Extraordinary.",
+      localized: true,
     },
     {
         name: 'email',
@@ -41,6 +42,7 @@ export const ContactPage: GlobalConfig = {
           name: 'address',
           type: 'textarea',
           label: 'Address',
+          localized: true,
           admin: {
             condition: (_, siblingData) => siblingData?.showSection,
           },

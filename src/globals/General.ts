@@ -12,6 +12,7 @@ export const General: GlobalConfig = {
       type: 'text',
       label: 'Footer Copyright Text',
       defaultValue: 'Morerolls Studio',
+      localized: true,
       admin: {
         description: 'Text displayed after the copyright year (e.g., "Morerolls Studio")',
       },
@@ -20,6 +21,7 @@ export const General: GlobalConfig = {
       name: 'footerSubDescription',
       type: 'textarea',
       label: 'Footer Sub-Description',
+      localized: true,
       admin: {
         description: 'Text displayed below the copyright text. Smaller font. Supports multiple lines.',
       },

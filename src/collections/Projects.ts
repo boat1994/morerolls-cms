@@ -11,6 +11,7 @@ export const Projects: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'slug',
@@ -41,6 +42,7 @@ export const Projects: CollectionConfig = {
     {
       name: 'client',
       type: 'text',
+      localized: true,
     },
     {
       name: 'year',
@@ -50,10 +52,12 @@ export const Projects: CollectionConfig = {
       name: 'services',
       type: 'text',
       label: 'Services (e.g., Event Coverage, Editing)',
+      localized: true,
     },
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'videoSrc',

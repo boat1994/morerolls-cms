@@ -8,37 +8,43 @@ import { VideoSource } from "@/components/home/HeroVideo";
 import { Project } from "@/payload-types";
 import { unstable_cache } from "next/cache";
 import { Container } from '@/components/ui/Container'
+import { getLocale } from "@/lib/locale";
 
 export const revalidate = 60; // ISR - revalidate every 60 seconds
 
-const getRootMedia = unstable_cache(
+const getRootMedia = (locale: string) => unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise });
     return await payload.findGlobal({
       slug: "root-page-medias",
       depth: 5,
+      locale: locale as 'en' | 'th',
+      fallbackLocale: 'en',
     });
   },
-  ['root-media'],
+  [`root-media-${locale}`],
   { revalidate: 60, tags: ['root-media'] }
-);
+)();
 
-const getHomeProjects = unstable_cache(
+const getHomeProjects = (locale: string) => unstable_cache(
   async () => {
     const payload = await getPayload({ config: configPromise });
     return await payload.find({
       collection: "projects",
       limit: 12,
       sort: 'order',
+      locale: locale as 'en' | 'th',
+      fallbackLocale: 'en',
     });
   },
-  ['home-projects'],
+  [`home-projects-${locale}`],
   { revalidate: 60, tags: ['projects'] }
-);
+)();
 
 export default async function Page() {
-  const rootMedia = await getRootMedia();
-  const projects = await getHomeProjects();
+  const locale = await getLocale();
+  const rootMedia = await getRootMedia(locale);
+  const projects = await getHomeProjects(locale);
 
   const heroVideo = rootMedia?.heroVideo;
   const clientLogos = rootMedia?.clientLogos || [];

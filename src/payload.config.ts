@@ -35,6 +35,14 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  localization: {
+    locales: [
+      { label: 'English', code: 'en' },
+      { label: 'ภาษาไทย', code: 'th' },
+    ],
+    defaultLocale: 'en',
+    fallback: true,
+  },
   collections: [Users, Media, Projects, Services],
   globals: [RootPageMedias, AboutPage, General, ContactPage],
   editor: lexicalEditor(),

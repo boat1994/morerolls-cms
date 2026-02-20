@@ -15,6 +15,7 @@ export const Services: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Package Title',
+      localized: true,
     },
     {
       name: 'thumbnail',
@@ -52,12 +53,14 @@ export const Services: CollectionConfig = {
       type: 'textarea',
       maxLength: 120,
       label: 'Highlight (Max 120 chars)',
+      localized: true,
     },
     {
       name: 'recommendedFor',
       type: 'textarea',
       maxLength: 200,
       label: 'Recommended For',
+      localized: true,
       admin: {
         placeholder: 'e.g., "Perfect for Luxury Brands" or "Ideal for Startups and SMEs"',
       },
@@ -78,6 +81,7 @@ export const Services: CollectionConfig = {
           type: 'text',
           defaultValue: 'Project',
           label: 'Unit (e.g. Project, Month)',
+          localized: true,
         },
         {
           name: 'isStartingAt',
@@ -103,12 +107,14 @@ export const Services: CollectionConfig = {
           type: 'text',
           required: true,
           label: 'Label (e.g. Duration)',
+          localized: true,
         },
         {
           name: 'value',
           type: 'text',
           required: true,
           label: 'Value (e.g. 30 Sec)',
+          localized: true,
         },
       ],
     },
@@ -121,6 +127,7 @@ export const Services: CollectionConfig = {
           name: 'item',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             placeholder: 'e.g., "1x Master File (4K ProRes)" or "3 Rounds of Revisions"',
           },
@@ -131,6 +138,7 @@ export const Services: CollectionConfig = {
       name: 'conditions',
       type: 'richText',
       label: 'Conditions / Fine Print',
+      localized: true,
     },
   ],
 }

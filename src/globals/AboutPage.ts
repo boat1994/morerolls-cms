@@ -24,6 +24,7 @@ export const AboutPage: GlobalConfig = {
           required: true,
           label: 'Headline',
           defaultValue: 'Devoted to the Frame',
+          localized: true,
         },
         {
           name: 'showSubtext',
@@ -35,6 +36,7 @@ export const AboutPage: GlobalConfig = {
           name: 'subtext',
           type: 'text',
           label: 'Subtext',
+          localized: true,
         },
         {
           name: 'textColor',
@@ -63,11 +65,13 @@ export const AboutPage: GlobalConfig = {
           name: 'title',
           type: 'text',
           defaultValue: 'Our Philosophy',
+          localized: true,
         },
         {
           name: 'content',
           type: 'richText',
           label: 'Content',
+          localized: true,
         },
       ],
     },
@@ -86,11 +90,13 @@ export const AboutPage: GlobalConfig = {
           name: 'role',
           type: 'text',
           label: 'Role',
+          localized: true,
         },
         {
           name: 'bio',
           type: 'richText',
           label: 'Bio',
+          localized: true,
         },
         {
           name: 'portrait',
@@ -122,11 +128,13 @@ export const AboutPage: GlobalConfig = {
           name: 'title',
           type: 'text',
           label: 'Title',
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
           label: 'Description',
+          localized: true,
         },
       ],
     },

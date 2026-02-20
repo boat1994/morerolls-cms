@@ -90,7 +90,7 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'th') | ('en' | 'th')[];
   globals: {
     'root-page-medias': RootPageMedia;
     'about-page': AboutPage;
@@ -103,7 +103,7 @@ export interface Config {
     general: GeneralSelect<false> | GeneralSelect<true>;
     'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
   };
-  locale: null;
+  locale: 'en' | 'th';
   user: User & {
     collection: 'users';
   };

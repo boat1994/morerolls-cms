@@ -6,6 +6,8 @@ import * as migration_20260114_074253_add_contact_and_general from './20260114_0
 import * as migration_20260115_065130 from './20260115_065130';
 import * as migration_20260115_084733_seed_default_globals from './20260115_084733_seed_default_globals';
 import * as migration_20260125_122000_add_root_media_posters from './20260125_122000_add_root_media_posters';
+import * as migration_20260206_062617 from './20260206_062617';
+
 
 export const migrations = [
   {
@@ -41,11 +43,16 @@ export const migrations = [
   {
     up: migration_20260115_084733_seed_default_globals.up,
     down: migration_20260115_084733_seed_default_globals.down,
-    name: '20260115_084733_seed_default_globals'
+    name: '20260115_084733_seed_default_globals',
   },
   {
     up: migration_20260125_122000_add_root_media_posters.up,
     down: migration_20260125_122000_add_root_media_posters.down,
-    name: '20260125_122000_add_root_media_posters'
+    name: '20260125_122000_add_root_media_posters',
+  },
+  {
+    up: migration_20260206_062617.up,
+    down: migration_20260206_062617.down,
+    name: '20260206_062617',
   },
 ];
