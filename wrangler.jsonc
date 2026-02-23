@@ -43,8 +43,9 @@
       ],
       "vars": {
         "NODE_ENV": "production",
-        "NEXT_PUBLIC_R2_HOSTNAME": "pub-ce68ca97bac342d383f6284fff969191.r2.dev",
-        "PAYLOAD_SECRET": "your-secret-key"
+        "NEXT_PUBLIC_R2_HOSTNAME": "pub-ce68ca97bac342d383f6284fff969191.r2.dev"
+        // PAYLOAD_SECRET must be set as an encrypted secret via Cloudflare Dashboard
+        // Never commit secrets to wrangler.jsonc
       },
     },
   },
