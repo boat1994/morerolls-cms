@@ -1,7 +1,7 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-d1-sqlite'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
-  await db.run(sql`CREATE TABLE \`projects_locales\` (
+  await db.run(sql`CREATE TABLE IF NOT EXISTS \`projects_locales\` (
   	\`title\` text NOT NULL,
   	\`client\` text,
   	\`services\` text,
@@ -12,8 +12,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`projects\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE UNIQUE INDEX \`projects_locales_locale_parent_id_unique\` ON \`projects_locales\` (\`_locale\`,\`_parent_id\`);`)
-  await db.run(sql`CREATE TABLE \`services_specs_locales\` (
+  try { await db.run(sql`CREATE UNIQUE INDEX \`projects_locales_locale_parent_id_unique\` ON \`projects_locales\` (\`_locale\`,\`_parent_id\`);`) } catch {}
+  await db.run(sql`CREATE TABLE IF NOT EXISTS \`services_specs_locales\` (
   	\`label\` text NOT NULL,
   	\`value\` text NOT NULL,
   	\`id\` integer PRIMARY KEY NOT NULL,
@@ -22,8 +22,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`services_specs\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE UNIQUE INDEX \`services_specs_locales_locale_parent_id_unique\` ON \`services_specs_locales\` (\`_locale\`,\`_parent_id\`);`)
-  await db.run(sql`CREATE TABLE \`services_deliverables_locales\` (
+  try { await db.run(sql`CREATE UNIQUE INDEX \`services_specs_locales_locale_parent_id_unique\` ON \`services_specs_locales\` (\`_locale\`,\`_parent_id\`);`) } catch {}
+  await db.run(sql`CREATE TABLE IF NOT EXISTS \`services_deliverables_locales\` (
   	\`item\` text NOT NULL,
   	\`id\` integer PRIMARY KEY NOT NULL,
   	\`_locale\` text NOT NULL,
@@ -31,8 +31,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`services_deliverables\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE UNIQUE INDEX \`services_deliverables_locales_locale_parent_id_unique\` ON \`services_deliverables_locales\` (\`_locale\`,\`_parent_id\`);`)
-  await db.run(sql`CREATE TABLE \`services_locales\` (
+  try { await db.run(sql`CREATE UNIQUE INDEX \`services_deliverables_locales_locale_parent_id_unique\` ON \`services_deliverables_locales\` (\`_locale\`,\`_parent_id\`);`) } catch {}
+  await db.run(sql`CREATE TABLE IF NOT EXISTS \`services_locales\` (
   	\`title\` text NOT NULL,
   	\`highlight\` text,
   	\`recommended_for\` text,
@@ -44,8 +44,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`services\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE UNIQUE INDEX \`services_locales_locale_parent_id_unique\` ON \`services_locales\` (\`_locale\`,\`_parent_id\`);`)
-  await db.run(sql`CREATE TABLE \`about_page_standards_locales\` (
+  try { await db.run(sql`CREATE UNIQUE INDEX \`services_locales_locale_parent_id_unique\` ON \`services_locales\` (\`_locale\`,\`_parent_id\`);`) } catch {}
+  await db.run(sql`CREATE TABLE IF NOT EXISTS \`about_page_standards_locales\` (
   	\`title\` text,
   	\`description\` text,
   	\`id\` integer PRIMARY KEY NOT NULL,
@@ -54,8 +54,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`about_page_standards\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE UNIQUE INDEX \`about_page_standards_locales_locale_parent_id_unique\` ON \`about_page_standards_locales\` (\`_locale\`,\`_parent_id\`);`)
-  await db.run(sql`CREATE TABLE \`about_page_locales\` (
+  try { await db.run(sql`CREATE UNIQUE INDEX \`about_page_standards_locales_locale_parent_id_unique\` ON \`about_page_standards_locales\` (\`_locale\`,\`_parent_id\`);`) } catch {}
+  await db.run(sql`CREATE TABLE IF NOT EXISTS \`about_page_locales\` (
   	\`hero_section_headline\` text DEFAULT 'Devoted to the Frame' NOT NULL,
   	\`hero_section_subtext\` text,
   	\`philosophy_title\` text DEFAULT 'Our Philosophy',
@@ -68,8 +68,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`about_page\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE UNIQUE INDEX \`about_page_locales_locale_parent_id_unique\` ON \`about_page_locales\` (\`_locale\`,\`_parent_id\`);`)
-  await db.run(sql`CREATE TABLE \`general_locales\` (
+  try { await db.run(sql`CREATE UNIQUE INDEX \`about_page_locales_locale_parent_id_unique\` ON \`about_page_locales\` (\`_locale\`,\`_parent_id\`);`) } catch {}
+  await db.run(sql`CREATE TABLE IF NOT EXISTS \`general_locales\` (
   	\`footer_text\` text DEFAULT 'Morerolls Studio',
   	\`footer_sub_description\` text,
   	\`id\` integer PRIMARY KEY NOT NULL,
@@ -78,8 +78,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`general\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE UNIQUE INDEX \`general_locales_locale_parent_id_unique\` ON \`general_locales\` (\`_locale\`,\`_parent_id\`);`)
-  await db.run(sql`CREATE TABLE \`contact_page_locales\` (
+  try { await db.run(sql`CREATE UNIQUE INDEX \`general_locales_locale_parent_id_unique\` ON \`general_locales\` (\`_locale\`,\`_parent_id\`);`) } catch {}
+  await db.run(sql`CREATE TABLE IF NOT EXISTS \`contact_page_locales\` (
   	\`headline\` text DEFAULT 'Let''s Create Something Extraordinary.' NOT NULL,
   	\`visit_us_address\` text,
   	\`id\` integer PRIMARY KEY NOT NULL,
@@ -88,31 +88,31 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`contact_page\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`CREATE UNIQUE INDEX \`contact_page_locales_locale_parent_id_unique\` ON \`contact_page_locales\` (\`_locale\`,\`_parent_id\`);`)
-  await db.run(sql`ALTER TABLE \`projects\` DROP COLUMN \`title\`;`)
-  await db.run(sql`ALTER TABLE \`projects\` DROP COLUMN \`client\`;`)
-  await db.run(sql`ALTER TABLE \`projects\` DROP COLUMN \`services\`;`)
-  await db.run(sql`ALTER TABLE \`projects\` DROP COLUMN \`description\`;`)
-  await db.run(sql`ALTER TABLE \`services_specs\` DROP COLUMN \`label\`;`)
-  await db.run(sql`ALTER TABLE \`services_specs\` DROP COLUMN \`value\`;`)
-  await db.run(sql`ALTER TABLE \`services_deliverables\` DROP COLUMN \`item\`;`)
-  await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`title\`;`)
-  await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`highlight\`;`)
-  await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`recommended_for\`;`)
-  await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`price_unit\`;`)
-  await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`conditions\`;`)
-  await db.run(sql`ALTER TABLE \`about_page_standards\` DROP COLUMN \`title\`;`)
-  await db.run(sql`ALTER TABLE \`about_page_standards\` DROP COLUMN \`description\`;`)
-  await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`hero_section_headline\`;`)
-  await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`hero_section_subtext\`;`)
-  await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`philosophy_title\`;`)
-  await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`philosophy_content\`;`)
-  await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`founder_role\`;`)
-  await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`founder_bio\`;`)
-  await db.run(sql`ALTER TABLE \`general\` DROP COLUMN \`footer_text\`;`)
-  await db.run(sql`ALTER TABLE \`general\` DROP COLUMN \`footer_sub_description\`;`)
-  await db.run(sql`ALTER TABLE \`contact_page\` DROP COLUMN \`headline\`;`)
-  await db.run(sql`ALTER TABLE \`contact_page\` DROP COLUMN \`visit_us_address\`;`)
+  try { await db.run(sql`CREATE UNIQUE INDEX \`contact_page_locales_locale_parent_id_unique\` ON \`contact_page_locales\` (\`_locale\`,\`_parent_id\`);`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`projects\` DROP COLUMN \`title\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`projects\` DROP COLUMN \`client\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`projects\` DROP COLUMN \`services\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`projects\` DROP COLUMN \`description\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`services_specs\` DROP COLUMN \`label\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`services_specs\` DROP COLUMN \`value\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`services_deliverables\` DROP COLUMN \`item\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`title\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`highlight\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`recommended_for\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`price_unit\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`services\` DROP COLUMN \`conditions\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`about_page_standards\` DROP COLUMN \`title\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`about_page_standards\` DROP COLUMN \`description\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`hero_section_headline\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`hero_section_subtext\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`philosophy_title\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`philosophy_content\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`founder_role\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`about_page\` DROP COLUMN \`founder_bio\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`general\` DROP COLUMN \`footer_text\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`general\` DROP COLUMN \`footer_sub_description\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`contact_page\` DROP COLUMN \`headline\`;`) } catch {}
+  try { await db.run(sql`ALTER TABLE \`contact_page\` DROP COLUMN \`visit_us_address\`;`) } catch {}
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
