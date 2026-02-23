@@ -55,17 +55,21 @@ export default buildConfig({
     migrationDir: path.resolve(dirname, 'migrations'),
   }),
   plugins: [
-    r2Storage({
-      bucket: cloudflare.env.R2,
-      collections: {
-        media: {
-          generateFileURL: ({ filename, prefix }) => {
-            const path = prefix ? `${prefix}/${filename}` : filename
-            return `https://${process.env.NEXT_PUBLIC_R2_HOSTNAME || 'pub-ce68ca97bac342d383f6284fff969191.r2.dev'}/${path}`
-          },
-        },
-      },
-    }),
+    ...(isProduction
+      ? [
+          r2Storage({
+            bucket: cloudflare.env.R2,
+            collections: {
+              media: {
+                generateFileURL: ({ filename, prefix }) => {
+                  const filePath = prefix ? `${prefix}/${filename}` : filename
+                  return `https://${process.env.NEXT_PUBLIC_R2_HOSTNAME || 'pub-ce68ca97bac342d383f6284fff969191.r2.dev'}/${filePath}`
+                },
+              },
+            },
+          }),
+        ]
+      : []),
   ],
 })
 

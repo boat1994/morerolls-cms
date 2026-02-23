@@ -109,6 +109,41 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
             >
               {project.description}
             </motion.p>
+        {/* Screenshots Section */}
+        {project.screenshots && project.screenshots.length > 0 && (
+          <div className="mt-16">
+            <hr className="border-neutral-200" />
+            {project.screenshots.map((item, index) => {
+              const imgMedia = typeof item.image === 'object' ? (item.image as Media) : null
+              if (!imgMedia?.url) return null
+              return (
+                <motion.div
+                  key={item.id ?? index}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex flex-col items-center"
+                >
+                  <div className="w-full relative mt-2">
+                    <Image
+                      src={imgMedia.url}
+                      alt={item.caption ?? imgMedia.alt ?? `Screenshot ${index + 1}`}
+                      width={imgMedia.width ?? 1920}
+                      height={imgMedia.height ?? 1080}
+                      className="w-full h-auto object-contain"
+                      unoptimized
+                    />
+                  </div>
+                  {item.caption && (
+                    <p className="mt-4 text-neutral-500 text-sm text-center max-w-2xl leading-relaxed">
+                      {item.caption}
+                    </p>
+                  )}
+                </motion.div>
+              )
+            })}
+          </div>
+        )}
           </div>
 
           <div className="space-y-8">
@@ -150,41 +185,7 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
           </div>
         </div>
 
-        {/* Screenshots Section */}
-        {project.screenshots && project.screenshots.length > 0 && (
-          <div className="mt-16 space-y-12">
-            <hr className="border-neutral-200" />
-            {project.screenshots.map((item, index) => {
-              const imgMedia = typeof item.image === 'object' ? (item.image as Media) : null
-              if (!imgMedia?.url) return null
-              return (
-                <motion.div
-                  key={item.id ?? index}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex flex-col items-center"
-                >
-                  <div className="w-full relative">
-                    <Image
-                      src={imgMedia.url}
-                      alt={item.caption ?? imgMedia.alt ?? `Screenshot ${index + 1}`}
-                      width={imgMedia.width ?? 1920}
-                      height={imgMedia.height ?? 1080}
-                      className="w-full h-auto object-contain"
-                      unoptimized
-                    />
-                  </div>
-                  {item.caption && (
-                    <p className="mt-4 text-neutral-500 text-sm text-center max-w-2xl leading-relaxed">
-                      {item.caption}
-                    </p>
-                  )}
-                </motion.div>
-              )
-            })}
-          </div>
-        )}
+
       </Container>
     </main>
   )
