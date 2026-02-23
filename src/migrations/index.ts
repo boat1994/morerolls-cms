@@ -9,6 +9,7 @@ import * as migration_20260125_122000_add_root_media_posters from './20260125_12
 import * as migration_20260206_062617 from './20260206_062617';
 import * as migration_20260220_054728 from './20260220_054728';
 import * as migration_20260223_030343 from './20260223_030343';
+import * as migration_20260223_034129 from './20260223_034129';
 
 export const migrations = [
   {
@@ -64,6 +65,11 @@ export const migrations = [
   {
     up: migration_20260223_030343.up,
     down: migration_20260223_030343.down,
-    name: '20260223_030343'
+    name: '20260223_030343',
+  },
+  {
+    up: migration_20260223_034129.up,
+    down: migration_20260223_034129.down,
+    name: '20260223_034129'
   },
 ];

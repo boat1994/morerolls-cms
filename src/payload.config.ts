@@ -11,6 +11,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Projects } from './collections/Projects'
 import { Services } from './collections/Services'
+import { BlogPosts } from './collections/BlogPosts'
 import { RootPageMedias } from './globals/RootPageMedias'
 import { AboutPage } from './globals/AboutPage'
 import { General } from './globals/General'
@@ -43,7 +44,7 @@ export default buildConfig({
     defaultLocale: 'en',
     fallback: true,
   },
-  collections: [Users, Media, Projects, Services],
+  collections: [Users, Media, Projects, Services, BlogPosts],
   globals: [RootPageMedias, AboutPage, General, ContactPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

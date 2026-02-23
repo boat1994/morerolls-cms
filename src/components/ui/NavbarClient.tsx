@@ -135,6 +135,7 @@ export function NavbarClient({ currentLocale }: NavbarClientProps) {
                     >
                         <div className="flex flex-col items-center gap-8 text-center">
                             <MobileNavLink href="/projects" onClick={() => handleNavigation("/projects")}>Projects</MobileNavLink>
+                            <MobileNavLink href="/blog" onClick={() => handleNavigation("/blog")}>Blog</MobileNavLink>
                             <MobileNavLink href="/services" onClick={() => handleNavigation("/services")}>Services</MobileNavLink>
                             <MobileNavLink href="/about" onClick={() => handleNavigation("/about")}>About</MobileNavLink>
                             <MobileNavLink href="/contact" onClick={() => handleNavigation("/contact")}>Contact</MobileNavLink>
