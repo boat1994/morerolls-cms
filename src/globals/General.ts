@@ -1,0 +1,52 @@
+import type { GlobalConfig } from 'payload'
+
+export const General: GlobalConfig = {
+  slug: 'general',
+  label: 'General Settings',
+  access: {
+    read: () => true,
+  },
+  fields: [
+    {
+      name: 'footerText',
+      type: 'text',
+      label: 'Footer Copyright Text',
+      defaultValue: 'Morerolls Studio',
+      localized: true,
+      admin: {
+        description: 'Text displayed after the copyright year (e.g., "Morerolls Studio")',
+      },
+    },
+    {
+      name: 'footerSubDescription',
+      type: 'textarea',
+      label: 'Footer Sub-Description',
+      localized: true,
+      admin: {
+        description: 'Text displayed below the copyright text. Smaller font. Supports multiple lines.',
+      },
+    },
+    {
+      name: 'socialLinks',
+      type: 'array',
+      label: 'Social Media Links',
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          required: true,
+          label: 'Label (e.g., Instagram)',
+        },
+        {
+          name: 'url',
+          type: 'text',
+          required: true,
+          label: 'URL',
+        },
+      ],
+      admin: {
+          
+      },
+    },
+  ],
+}

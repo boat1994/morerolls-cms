@@ -2,87 +2,19 @@
 
 import { Container } from "@/components/ui/Container";
 import { motion } from "framer-motion";
-import {
-    Triangle,
-    Circle,
-    Square,
-    Hexagon,
-    Diamond,
-    Star,
-    Zap,
-    Globe,
-    Command,
-    Layers,
-    Layout,
-    Box,
-    Target,
-    Award,
-    Crown,
-    Shield,
-    LucideIcon,
-} from "lucide-react";
+import { Media } from "@/payload-types";
+import Image from "next/image";
 
-const CLIENTS = [
-    "Bunim Murray",
-    "CNN",
-    "Fox Sports",
-    "Food Network",
-    "Facebook",
-    "Endemol Shine",
-    "Dori Media",
-    "Discovery",
-    "Google",
-    "Gillette",
-    "Grey",
-    "HGTV",
-    "Hulegu Pictures",
-    "IKEA",
-    "Nordisk Film TV",
-    "Nat Geo",
-    "NBC",
-    "MTV",
-    "Moskito TV",
-    "Mitsubishi",
-    "Oppo",
-    "Red Bull",
-    "Rosewood",
-    "Spike",
-    "Travel Channel",
-    "UOB",
-    "Zero Point Zero",
-    "Warner Bros.",
-];
-
-const ICONS = [
-    Triangle,
-    Circle,
-    Square,
-    Hexagon,
-    Diamond,
-    Star,
-    Zap,
-    Globe,
-    Command,
-    Layers,
-    Layout,
-    Box,
-    Target,
-    Award,
-    Crown,
-    Shield,
-];
-
-const getClientIcon = (name: string): LucideIcon => {
-    // Deterministic hash to assign an icon based on the name
-    let hash = 0;
-    for (let i = 0; i < name.length; i++) {
-        hash = name.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    const index = Math.abs(hash) % ICONS.length;
-    return ICONS[index];
+type ClientLogosProps = {
+    logos?: {
+        logo: Media | number;
+        id?: string | null;
+    }[] | null;
 };
 
-export function ClientLogos() {
+export function ClientLogos({ logos = [] }: ClientLogosProps) {
+    if (!logos || logos.length === 0) return null;
+
     return (
         <section className="bg-white text-black py-12 md:py-20 border-b border-neutral-100">
             <Container>
@@ -94,15 +26,25 @@ export function ClientLogos() {
 
                 {/* Desktop Grid */}
                 <div className="hidden md:grid grid-cols-4 lg:grid-cols-6 gap-8 gap-y-12">
-                    {CLIENTS.map((client) => {
-                        const Icon = getClientIcon(client);
+                    {logos.map((item, index) => {
+                        const logoUrl = (item.logo && typeof item.logo === 'object') ? item.logo.url : null;
+                        const logoAlt = (item.logo && typeof item.logo === 'object') ? item.logo.alt : 'Client Logo';
+                        
+                        if (!logoUrl) return null;
+
                         return (
                             <div
-                                key={client}
-                                className="flex flex-col items-center justify-center gap-3 grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 group"
+                                key={item.id || index}
+                                className="flex flex-col items-center justify-center gap-3 opacity-50 hover:opacity-100 transition-all duration-300 group relative w-full aspect-square"
                             >
-                                <Icon className="w-8 h-8 stroke-1 text-neutral-800 group-hover:scale-110 transition-transform duration-300" />
-                                <span className="text-sm font-bold text-center">{client}</span>
+                                <div className="relative w-20 h-20">
+                                    <Image 
+                                        src={logoUrl} 
+                                        alt={logoAlt} 
+                                        fill 
+                                        className="object-contain"
+                                    />
+                                </div>
                             </div>
                         );
                     })}
@@ -125,15 +67,25 @@ export function ClientLogos() {
                                 },
                             }}
                         >
-                            {[...CLIENTS, ...CLIENTS].map((client, index) => {
-                                const Icon = getClientIcon(client);
+                            {[...logos, ...logos].map((item, index) => {
+                                const logoUrl = (item.logo && typeof item.logo === 'object') ? item.logo.url : null;
+                                const logoAlt = (item.logo && typeof item.logo === 'object') ? item.logo.alt : 'Client Logo';
+
+                                if (!logoUrl) return null;
+
                                 return (
                                     <div
-                                        key={`${client}-${index}`}
-                                        className="flex items-center gap-3 h-12 whitespace-nowrap"
+                                        key={`${item.id}-${index}`}
+                                        className="flex items-center gap-3 h-12 whitespace-nowrap relative w-16"
                                     >
-                                        <Icon className="w-6 h-6 stroke-1 text-neutral-800" />
-                                        <span className="text-lg font-bold text-neutral-800">{client}</span>
+                                        <div className="relative w-16 h-16 opacity-70">
+                                            <Image 
+                                                src={logoUrl}  
+                                                alt={logoAlt} 
+                                                fill 
+                                                className="object-contain"
+                                            />
+                                        </div>
                                     </div>
                                 );
                             })}

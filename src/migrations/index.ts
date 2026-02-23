@@ -1,4 +1,15 @@
-import * as migration_20250929_111647 from './20250929_111647'
+import * as migration_20250929_111647 from './20250929_111647';
+import * as migration_20260110_143359 from './20260110_143359';
+import * as migration_20260110_144618_projects_init from './20260110_144618_projects_init';
+import * as migration_20260110_144852 from './20260110_144852';
+import * as migration_20260114_074253_add_contact_and_general from './20260114_074253_add_contact_and_general';
+import * as migration_20260115_065130 from './20260115_065130';
+import * as migration_20260115_084733_seed_default_globals from './20260115_084733_seed_default_globals';
+import * as migration_20260125_122000_add_root_media_posters from './20260125_122000_add_root_media_posters';
+import * as migration_20260206_062617 from './20260206_062617';
+import * as migration_20260220_054728 from './20260220_054728';
+import * as migration_20260223_030343 from './20260223_030343';
+import * as migration_20260223_034129 from './20260223_034129';
 
 export const migrations = [
   {
@@ -6,4 +17,59 @@ export const migrations = [
     down: migration_20250929_111647.down,
     name: '20250929_111647',
   },
-]
+  {
+    up: migration_20260110_143359.up,
+    down: migration_20260110_143359.down,
+    name: '20260110_143359',
+  },
+  {
+    up: migration_20260110_144618_projects_init.up,
+    down: migration_20260110_144618_projects_init.down,
+    name: '20260110_144618_projects_init',
+  },
+  {
+    up: migration_20260110_144852.up,
+    down: migration_20260110_144852.down,
+    name: '20260110_144852',
+  },
+  {
+    up: migration_20260114_074253_add_contact_and_general.up,
+    down: migration_20260114_074253_add_contact_and_general.down,
+    name: '20260114_074253_add_contact_and_general',
+  },
+  {
+    up: migration_20260115_065130.up,
+    down: migration_20260115_065130.down,
+    name: '20260115_065130',
+  },
+  {
+    up: migration_20260115_084733_seed_default_globals.up,
+    down: migration_20260115_084733_seed_default_globals.down,
+    name: '20260115_084733_seed_default_globals',
+  },
+  {
+    up: migration_20260125_122000_add_root_media_posters.up,
+    down: migration_20260125_122000_add_root_media_posters.down,
+    name: '20260125_122000_add_root_media_posters',
+  },
+  {
+    up: migration_20260206_062617.up,
+    down: migration_20260206_062617.down,
+    name: '20260206_062617',
+  },
+  {
+    up: migration_20260220_054728.up,
+    down: migration_20260220_054728.down,
+    name: '20260220_054728',
+  },
+  {
+    up: migration_20260223_030343.up,
+    down: migration_20260223_030343.down,
+    name: '20260223_030343',
+  },
+  {
+    up: migration_20260223_034129.up,
+    down: migration_20260223_034129.down,
+    name: '20260223_034129'
+  },
+];

@@ -18,3 +18,4 @@ export const Media: CollectionConfig = {
     focalPoint: false,
   },
 }
+

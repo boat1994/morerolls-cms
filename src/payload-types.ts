@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    projects: Project;
+    services: Service;
+    'blog-posts': BlogPost;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -86,10 +92,20 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
-  locale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'th') | ('en' | 'th')[];
+  globals: {
+    'root-page-medias': RootPageMedia;
+    'about-page': AboutPage;
+    general: General;
+    'contact-page': ContactPage;
+  };
+  globalsSelect: {
+    'root-page-medias': RootPageMediasSelect<false> | RootPageMediasSelect<true>;
+    'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
+    general: GeneralSelect<false> | GeneralSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
+  };
+  locale: 'en' | 'th';
   user: User & {
     collection: 'users';
   };
@@ -159,6 +175,126 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  slug: string;
+  /**
+   * Set the order for sorting (ascending)
+   */
+  order?: number | null;
+  isFeatured?: boolean | null;
+  client?: string | null;
+  year?: string | null;
+  services?: string | null;
+  description?: string | null;
+  /**
+   * Add screenshots with captions. Drag to reorder.
+   */
+  screenshots?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  videoSrc?: string | null;
+  poster?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: number;
+  title: string;
+  /**
+   * Visual representation for this service (recommended: 16:9 aspect ratio)
+   */
+  thumbnail?: (number | null) | Media;
+  category: 'short-video' | 'presentation' | 'ads';
+  /**
+   * Used to sort services manually (Ascending)
+   */
+  order?: number | null;
+  highlight?: string | null;
+  recommendedFor?: string | null;
+  price: {
+    amount: number;
+    unit?: string | null;
+    isStartingAt?: boolean | null;
+    hidePricing?: boolean | null;
+  };
+  specs?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  deliverables?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  conditions?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-posts".
+ */
+export interface BlogPost {
+  id: number;
+  title: string;
+  slug: string;
+  category?: string | null;
+  publishedAt?: string | null;
+  coverImage: number | Media;
+  /**
+   * Short summary shown on the blog list page
+   */
+  excerpt?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -188,6 +324,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'blog-posts';
+        value: number | BlogPost;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -271,6 +419,82 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  order?: T;
+  isFeatured?: T;
+  client?: T;
+  year?: T;
+  services?: T;
+  description?: T;
+  screenshots?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  videoSrc?: T;
+  poster?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  title?: T;
+  thumbnail?: T;
+  category?: T;
+  order?: T;
+  highlight?: T;
+  recommendedFor?: T;
+  price?:
+    | T
+    | {
+        amount?: T;
+        unit?: T;
+        isStartingAt?: T;
+        hidePricing?: T;
+      };
+  specs?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  deliverables?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  conditions?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-posts_select".
+ */
+export interface BlogPostsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  category?: T;
+  publishedAt?: T;
+  coverImage?: T;
+  excerpt?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -308,6 +532,255 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "root-page-medias".
+ */
+export interface RootPageMedia {
+  id: number;
+  heroVideo: {
+    desktop: {
+      type: 'upload' | 'youtube';
+      url?: string | null;
+      file?: (number | null) | Media;
+      poster: number | Media;
+    };
+    mobile: {
+      type: 'upload' | 'youtube';
+      url?: string | null;
+      file?: (number | null) | Media;
+      poster: number | Media;
+    };
+  };
+  clientLogos?:
+    | {
+        /**
+         * Please upload a 1:1 aspect ratio image containing only the logo.
+         */
+        logo: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page".
+ */
+export interface AboutPage {
+  id: number;
+  heroSection: {
+    showHeadline?: boolean | null;
+    headline: string;
+    showSubtext?: boolean | null;
+    subtext?: string | null;
+    textColor?: ('black' | 'white') | null;
+    coverImage?: (number | null) | Media;
+  };
+  philosophy?: {
+    title?: string | null;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  founder: {
+    name: string;
+    role?: string | null;
+    bio?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    portrait?: (number | null) | Media;
+    yearsActive?: number | null;
+  };
+  standards?:
+    | {
+        icon?: (number | null) | Media;
+        title?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "general".
+ */
+export interface General {
+  id: number;
+  /**
+   * Text displayed after the copyright year (e.g., "Morerolls Studio")
+   */
+  footerText?: string | null;
+  /**
+   * Text displayed below the copyright text. Smaller font. Supports multiple lines.
+   */
+  footerSubDescription?: string | null;
+  socialLinks?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: number;
+  headline: string;
+  email: string;
+  phone: string;
+  visitUs?: {
+    showSection?: boolean | null;
+    address?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "root-page-medias_select".
+ */
+export interface RootPageMediasSelect<T extends boolean = true> {
+  heroVideo?:
+    | T
+    | {
+        desktop?:
+          | T
+          | {
+              type?: T;
+              url?: T;
+              file?: T;
+              poster?: T;
+            };
+        mobile?:
+          | T
+          | {
+              type?: T;
+              url?: T;
+              file?: T;
+              poster?: T;
+            };
+      };
+  clientLogos?:
+    | T
+    | {
+        logo?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page_select".
+ */
+export interface AboutPageSelect<T extends boolean = true> {
+  heroSection?:
+    | T
+    | {
+        showHeadline?: T;
+        headline?: T;
+        showSubtext?: T;
+        subtext?: T;
+        textColor?: T;
+        coverImage?: T;
+      };
+  philosophy?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+      };
+  founder?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        bio?: T;
+        portrait?: T;
+        yearsActive?: T;
+      };
+  standards?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "general_select".
+ */
+export interface GeneralSelect<T extends boolean = true> {
+  footerText?: T;
+  footerSubDescription?: T;
+  socialLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  headline?: T;
+  email?: T;
+  phone?: T;
+  visitUs?:
+    | T
+    | {
+        showSection?: T;
+        address?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
