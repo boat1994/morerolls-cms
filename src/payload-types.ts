@@ -188,6 +188,16 @@ export interface Project {
   year?: string | null;
   services?: string | null;
   description?: string | null;
+  /**
+   * Add screenshots with captions. Drag to reorder.
+   */
+  screenshots?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   videoSrc?: string | null;
   poster?: (number | null) | Media;
   updatedAt: string;
@@ -381,6 +391,13 @@ export interface ProjectsSelect<T extends boolean = true> {
   year?: T;
   services?: T;
   description?: T;
+  screenshots?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
   videoSrc?: T;
   poster?: T;
   updatedAt?: T;

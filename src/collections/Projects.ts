@@ -60,6 +60,31 @@ export const Projects: CollectionConfig = {
       localized: true,
     },
     {
+      name: 'screenshots',
+      type: 'array',
+      label: 'Screenshots',
+      labels: {
+        singular: 'Screenshot',
+        plural: 'Screenshots',
+      },
+      admin: {
+        description: 'Add screenshots with captions. Drag to reorder.',
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'caption',
+          type: 'textarea',
+          localized: true,
+        },
+      ],
+    },
+    {
       name: 'videoSrc',
       type: 'text',
       label: 'Video Source URL',
