@@ -5,21 +5,23 @@ import { Service } from "@/payload-types";
 import { Container } from "@/components/ui/Container";
 import { ServiceCard } from "./ServiceCard";
 import { ServiceDetailModal } from "./ServiceDetailModal";
+import type { Dictionary } from "@/lib/i18n";
 
 type ServicesPageProps = {
     services: Service[];
+    dict: Dictionary['services'];
 };
 
-export function ServicesPage({ services }: ServicesPageProps) {
+export function ServicesPage({ services, dict }: ServicesPageProps) {
     const [selectedService, setSelectedService] = useState<Service | null>(null);
 
     return (
         <main className="bg-white min-h-screen pt-24 pb-20 text-black">
             <Container>
                 <div className="mb-16">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tighter">Services</h1>
+                    <h1 className="text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tighter">{dict.header_title}</h1>
                     <p className="text-neutral-500 max-w-xl text-lg font-light">
-                        Professional production solutions tailored to your business needs, transparently priced.
+                        {dict.header_subtitle}
                     </p>
                 </div>
 
@@ -36,7 +38,7 @@ export function ServicesPage({ services }: ServicesPageProps) {
                 {services.length === 0 && (
                      <div className="text-center py-20 border border-dashed border-neutral-200 bg-neutral-50 rounded-lg">
                         <p className="text-neutral-500 uppercase tracking-widest text-sm">
-                            Contact us for custom requests
+                            {dict.contact_for_custom}
                         </p>
                     </div>
                 )}

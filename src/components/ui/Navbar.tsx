@@ -1,4 +1,5 @@
 import { getLocale } from '@/lib/locale'
+import { getDictionary } from '@/lib/i18n'
 import { NavbarClient } from './NavbarClient'
 
 /**
@@ -7,5 +8,8 @@ import { NavbarClient } from './NavbarClient'
  */
 export async function Navbar() {
   const locale = await getLocale()
-  return <NavbarClient currentLocale={locale} />
+  const dict = await getDictionary(locale)
+  
+  return <NavbarClient currentLocale={locale} dict={dict.nav} searchDict={dict.search} />
 }
+

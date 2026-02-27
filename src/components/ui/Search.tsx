@@ -9,6 +9,8 @@ import { searchProjects, getProjectTypes } from "@/app/actions/search";
 import type { Project } from "@/payload-types";
 // import { useDebounce } from "@/lib/hooks/useDebounce"
 
+import type { Dictionary } from "@/lib/i18n";
+
 // Simple debounce hook if not existing
 function useDebounceValue<T>(value: T, delay: number): T {
     const [debouncedValue, setDebouncedValue] = useState<T>(value);
@@ -23,7 +25,11 @@ function useDebounceValue<T>(value: T, delay: number): T {
     return debouncedValue;
 }
 
-export function Search() {
+interface SearchProps {
+    dict: Dictionary['search'];
+}
+
+export function Search({ dict }: SearchProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<Project[]>([]);
@@ -113,7 +119,7 @@ export function Search() {
                                 <input
                                     ref={inputRef}
                                     type="text"
-                                    placeholder="Search projects by name..."
+                                    placeholder={dict.placeholder}
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
                                     className="flex-1 text-lg outline-none placeholder:text-gray-300 text-black caret-black"
@@ -135,7 +141,7 @@ export function Search() {
                                     <div className="space-y-4">
                                         <div className="flex items-center justify-between">
                                             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                                                {isLoading ? "Searching..." : `Results (${results.length})`}
+                                                {isLoading ? dict.searching : `${dict.results} (${results.length})`}
                                             </h3>
                                             {isLoading && <Loader2 className="w-4 h-4 animate-spin text-black" />}
                                         </div>
@@ -173,7 +179,7 @@ export function Search() {
                                                     </Link>
                                                 ))}
                                                 {results.length === 0 && (
-                                                    <p className="text-gray-400">No projects found.</p>
+                                                    <p className="text-gray-400">{dict.no_projects_found}</p>
                                                 )}
                                             </div>
                                         )}
@@ -182,7 +188,7 @@ export function Search() {
                                     /* Suggestions / Categories */
                                     <div className="space-y-4">
                                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                                            Suggestions by Type
+                                            {dict.suggestions_title}
                                         </h3>
                                         <div className="flex flex-wrap gap-2">
                                             {suggestions.map((type) => (
@@ -195,7 +201,7 @@ export function Search() {
                                                 </button>
                                             ))}
                                              {suggestions.length === 0 && (
-                                                <p className="text-gray-400 text-sm">No suggestions available.</p>
+                                                <p className="text-gray-400 text-sm">{dict.no_suggestions}</p>
                                             )}
                                         </div>
                                     </div>

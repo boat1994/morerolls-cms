@@ -7,12 +7,14 @@ import { Container } from "@/components/ui/Container";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Project, Media } from "@/payload-types";
+import type { Dictionary } from "@/lib/i18n";
 
 type ProjectGridProps = React.HTMLAttributes<HTMLElement> & {
     projects: Project[];
+    dict: Dictionary['projects'];
 };
 
-export function ProjectGrid({ className, projects = [], ...props }: ProjectGridProps) {
+export function ProjectGrid({ className, projects = [], dict, ...props }: ProjectGridProps) {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
     // Derive categories from projects
@@ -82,7 +84,7 @@ export function ProjectGrid({ className, projects = [], ...props }: ProjectGridP
                                                 />
                                             ) : (
                                                  <div className="w-full h-full flex items-center justify-center text-neutral-400 text-xs uppercase tracking-widest">
-                                                    No Image
+                                                    {dict.no_image}
                                                  </div>
                                             )}
                                             {posterUrl && (
@@ -104,7 +106,7 @@ export function ProjectGrid({ className, projects = [], ...props }: ProjectGridP
 
                 {filteredProjects.length === 0 && (
                     <div className="text-center py-20 text-neutral-400 uppercase tracking-widest">
-                        No projects found
+                        {dict.no_projects_found}
                     </div>
                 )}
             </Container>

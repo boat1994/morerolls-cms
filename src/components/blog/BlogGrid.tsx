@@ -7,21 +7,26 @@ import { Container } from '@/components/ui/Container'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { BlogPost, Media } from '@/payload-types'
+import type { Dictionary } from '@/lib/i18n'
+import type { Locale } from '@/lib/locale'
 
 type BlogGridProps = React.HTMLAttributes<HTMLElement> & {
   posts: BlogPost[]
+  dict: Dictionary['blog']
+  locale: Locale
 }
 
-function formatDate(dateStr?: string | null) {
+function formatDate(dateStr?: string | null, locale: string = 'en') {
   if (!dateStr) return ''
-  return new Date(dateStr).toLocaleDateString('en-GB', {
+  const localeCode = locale === 'th' ? 'th-TH' : 'en-GB'
+  return new Date(dateStr).toLocaleDateString(localeCode, {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
   })
 }
 
-export function BlogGrid({ className, posts = [], ...props }: BlogGridProps) {
+export function BlogGrid({ className, posts = [], dict, locale, ...props }: BlogGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
   const categories = useMemo(() => {
@@ -51,7 +56,7 @@ export function BlogGrid({ className, posts = [], ...props }: BlogGridProps) {
                   : 'bg-white text-neutral-500 border-neutral-200 hover:border-black hover:text-black',
               )}
             >
-              All
+              {dict.all_categories}
             </button>
             {categories.map((cat) => (
               <button
@@ -100,7 +105,7 @@ export function BlogGrid({ className, posts = [], ...props }: BlogGridProps) {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-neutral-400 text-xs uppercase tracking-widest">
-                          No Image
+                          {dict.no_image}
                         </div>
                       )}
                       <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -110,7 +115,7 @@ export function BlogGrid({ className, posts = [], ...props }: BlogGridProps) {
                     <div className="flex flex-col items-start gap-1">
                       {(post.category || post.publishedAt) && (
                         <p className="text-xs text-neutral-400 uppercase tracking-widest">
-                          {[post.category, formatDate(post.publishedAt)].filter(Boolean).join(' · ')}
+                          {[post.category, formatDate(post.publishedAt, locale)].filter(Boolean).join(' · ')}
                         </p>
                       )}
                       <h3 className="text-lg font-bold uppercase tracking-wider group-hover:text-neutral-600 transition-colors">
@@ -131,7 +136,7 @@ export function BlogGrid({ className, posts = [], ...props }: BlogGridProps) {
 
         {filtered.length === 0 && (
           <div className="text-center py-20 text-neutral-400 uppercase tracking-widest">
-            No posts found
+            {dict.no_posts_found}
           </div>
         )}
       </Container>

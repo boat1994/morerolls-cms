@@ -10,11 +10,15 @@ import { Search } from "./Search";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import type { Locale } from "@/lib/locale";
 
+import type { Dictionary } from "@/lib/i18n";
+
 interface NavbarClientProps {
     currentLocale: Locale
+    dict: Dictionary['nav']
+    searchDict: Dictionary['search']
 }
 
-export function NavbarClient({ currentLocale }: NavbarClientProps) {
+export function NavbarClient({ currentLocale, dict, searchDict }: NavbarClientProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { scrollY } = useScroll();
@@ -88,7 +92,7 @@ export function NavbarClient({ currentLocale }: NavbarClientProps) {
                         <button
                             className={`p-2 -ml-2 transition-colors duration-300 ${textColorClass}`}
                             onClick={() => setIsOpen(!isOpen)}
-                            aria-label="Toggle menu"
+                            aria-label={dict.toggle_menu}
                         >
                             {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
                         </button>
@@ -114,9 +118,10 @@ export function NavbarClient({ currentLocale }: NavbarClientProps) {
                         <LanguageSwitcher
                             currentLocale={currentLocale}
                             colorClass={textColorClass}
+                            dict={dict}
                         />
                         <div className={`${textColorClass}`}>
-                            <Search />
+                            <Search dict={searchDict} />
                         </div>
                     </div>
 
@@ -134,11 +139,11 @@ export function NavbarClient({ currentLocale }: NavbarClientProps) {
                         className="fixed inset-0 z-40 bg-white flex flex-col justify-center items-center"
                     >
                         <div className="flex flex-col items-center gap-8 text-center">
-                            <MobileNavLink href="/projects" onClick={() => handleNavigation("/projects")}>Projects</MobileNavLink>
-                            <MobileNavLink href="/blog" onClick={() => handleNavigation("/blog")}>Blog</MobileNavLink>
-                            <MobileNavLink href="/services" onClick={() => handleNavigation("/services")}>Services</MobileNavLink>
-                            <MobileNavLink href="/about" onClick={() => handleNavigation("/about")}>About</MobileNavLink>
-                            <MobileNavLink href="/contact" onClick={() => handleNavigation("/contact")}>Contact</MobileNavLink>
+                            <MobileNavLink href="/projects" onClick={() => handleNavigation("/projects")}>{dict.projects}</MobileNavLink>
+                            <MobileNavLink href="/blog" onClick={() => handleNavigation("/blog")}>{dict.blog}</MobileNavLink>
+                            <MobileNavLink href="/services" onClick={() => handleNavigation("/services")}>{dict.services}</MobileNavLink>
+                            <MobileNavLink href="/about" onClick={() => handleNavigation("/about")}>{dict.about}</MobileNavLink>
+                            <MobileNavLink href="/contact" onClick={() => handleNavigation("/contact")}>{dict.contact}</MobileNavLink>
                         </div>
                     </motion.div>
                 )}
