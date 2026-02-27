@@ -9,6 +9,7 @@ import { Project } from "@/payload-types";
 import { unstable_cache } from "next/cache";
 import { Container } from '@/components/ui/Container'
 import { getLocale } from "@/lib/locale";
+import { getDictionary } from "@/lib/i18n";
 
 export const revalidate = 60; // ISR - revalidate every 60 seconds
 
@@ -43,6 +44,7 @@ const getHomeProjects = (locale: string) => unstable_cache(
 
 export default async function Page() {
   const locale = await getLocale();
+  const dict = await getDictionary(locale);
   const rootMedia = await getRootMedia(locale);
   const projects = await getHomeProjects(locale);
 
@@ -59,11 +61,11 @@ export default async function Page() {
     <Container className="pt-4">
       <div className="mb-12 mt-4">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-black uppercase tracking-tighter">
-         Films
+         {dict.home.header_title}
         </h1>
-         <p className="text-lg text-black">Cinematic works by More Rolls</p>
+         <p className="text-lg text-black">{dict.home.header_subtitle}</p>
         </div>
-      <ProjectGrid projects={projects.docs as Project[]} />
+      <ProjectGrid projects={projects.docs as Project[]} dict={dict.projects} />
       
       {/* View All Button */}
       <div className="flex justify-center mt-12 mb-20">
@@ -71,7 +73,7 @@ export default async function Page() {
           href="/projects" 
           className="inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white uppercase tracking-widest bg-black hover:bg-neutral-800 transition-colors duration-300"
         >
-          View All Projects
+          {dict.home.view_all_projects}
         </a>
       </div>
       </Container>

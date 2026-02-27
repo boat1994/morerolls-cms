@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "projects": "Projects",
+    "blog": "Blog",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "switch_en": "Switch to English",
+    "switch_th": "Switch to Thai",
+    "toggle_menu": "Toggle menu",
+    "search": "Search"
+  },
+  "search": {
+    "placeholder": "Search projects by name...",
+    "results": "Results",
+    "searching": "Searching...",
+    "no_projects_found": "No projects found.",
+    "suggestions_title": "Suggestions by Type",
+    "no_suggestions": "No suggestions available."
+  },
+  "home": {
+    "header_title": "Films",
+    "header_subtitle": "Cinematic works by More Rolls",
+    "view_all_projects": "View All Projects"
+  },
+  "blog": {
+    "header_title": "Blog",
+    "header_subtitle": "Stories, knowledge & behind the scenes",
+    "all_categories": "All",
+    "no_image": "No Image",
+    "no_posts_found": "No posts found"
+  },
+  "projects": {
+    "header_title": "Films",
+    "header_subtitle": "Cinematic works by More Rolls",
+    "no_image": "No Image",
+    "no_projects_found": "No projects found"
+  },
+  "services": {
+    "header_title": "Services",
+    "header_subtitle": "Professional production solutions tailored to your business needs, transparently priced.",
+    "contact_for_custom": "Contact us for custom requests"
+  },
+  "contact": {
+    "fallback_headline": "Let's Create<br />Something<br />Extraordinary.",
+    "general_inquiries": "General Inquiries",
+    "visit_us": "Visit Us",
+    "fallback_address": "123 Creative District,\nSukhumvit Road, Bangkok,\nThailand 10110"
+  },
+  "footer": {
+    "fallback_copyright": "Morerolls Studio"
+  }
+}

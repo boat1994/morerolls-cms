@@ -3,14 +3,20 @@ import { Container } from "@/components/ui/Container";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { General } from "@/payload-types";
+import { getLocale } from "@/lib/locale";
+import { getDictionary } from "@/lib/i18n";
 
 export async function Footer() {
+    const locale = await getLocale();
+    const dict = await getDictionary(locale);
     const payload = await getPayload({ config: configPromise });
     // Safe fetch in case global isn't seeded yet
     let generalData: General | null = null;
     try {
         generalData = await payload.findGlobal({
             slug: "general",
+            locale,
+            fallbackLocale: 'en',
         }) as General;
     } catch (e) {
         // Fallback or ignore if not found
@@ -34,7 +40,7 @@ export async function Footer() {
                      */}
                     <div className="flex flex-col gap-2">
                         <div className="text-sm font-medium tracking-widest uppercase">
-                            &copy; {year} {footerText || "Morerolls Studio"}
+                            &copy; {year} {footerText || dict.footer.fallback_copyright}
                         </div>
                         {footerSubDescription && (
                             <div className="text-xs text-neutral-500 whitespace-pre-wrap max-w-md">

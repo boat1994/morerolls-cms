@@ -4,17 +4,21 @@ import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
 import { LOCALE_COOKIE, SUPPORTED_LOCALES, type Locale } from '@/lib/locale'
 
+import type { Dictionary } from '@/lib/i18n'
+
 interface LanguageSwitcherProps {
   currentLocale: Locale
   className?: string
   /** Color variant for the text — pass 'white' on transparent nav */
   colorClass?: string
+  dict: Dictionary['nav']
 }
 
 export function LanguageSwitcher({
   currentLocale,
   className = '',
   colorClass = 'text-current',
+  dict,
 }: LanguageSwitcherProps) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
@@ -45,7 +49,7 @@ export function LanguageSwitcher({
                 ? 'opacity-100 font-bold'
                 : 'opacity-40 hover:opacity-70 cursor-pointer'
             } ${isPending ? 'pointer-events-none' : ''}`}
-            aria-label={`Switch to ${locale === 'en' ? 'English' : 'Thai'}`}
+            aria-label={locale === 'en' ? dict.switch_en : dict.switch_th}
           >
             {locale.toUpperCase()}
           </button>

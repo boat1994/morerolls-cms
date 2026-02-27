@@ -1,0 +1,53 @@
+{
+  "nav": {
+    "projects": "ผลงาน",
+    "blog": "บล็อก",
+    "services": "บริการ",
+    "about": "เกี่ยวกับเรา",
+    "contact": "ติดต่อเรา",
+    "switch_en": "Switch to English",
+    "switch_th": "เปลี่ยนเป็นภาษาไทย",
+    "toggle_menu": "เปิด/ปิดเมนู",
+    "search": "ค้นหา"
+  },
+  "search": {
+    "placeholder": "ค้นหาผลงานตามชื่อ...",
+    "results": "ผลลัพธ์",
+    "searching": "กำลังค้นหา...",
+    "no_projects_found": "ไม่พบผลงาน",
+    "suggestions_title": "คำแนะนำตามประเภท",
+    "no_suggestions": "ไม่มีคำแนะนำ"
+  },
+  "home": {
+    "header_title": "ผลงาน",
+    "header_subtitle": "งานภาพยนตร์โดย More Rolls",
+    "view_all_projects": "ดูผลงานทั้งหมด"
+  },
+  "blog": {
+    "header_title": "บล็อก",
+    "header_subtitle": "เรื่องราว ความรู้ และเบื้องหลัง",
+    "all_categories": "ทั้งหมด",
+    "no_image": "ไม่มีรูปภาพ",
+    "no_posts_found": "ไม่พบบทความ"
+  },
+  "projects": {
+    "header_title": "ผลงาน",
+    "header_subtitle": "งานภาพยนตร์โดย More Rolls",
+    "no_image": "ไม่มีรูปภาพ",
+    "no_projects_found": "ไม่พบผลงาน"
+  },
+  "services": {
+    "header_title": "บริการ",
+    "header_subtitle": "โซลูชั่นโปรดักชั่นระดับมืออาชีพที่ปรับแต่งให้เหมาะกับธุรกิจของคุณ พร้อมราคาที่โปร่งใส",
+    "contact_for_custom": "ติดต่อเราสำหรับความต้องการพิเศษ"
+  },
+  "contact": {
+    "fallback_headline": "มาร่วมสร้างสรรค์<br />สิ่งที่ไม่ธรรมดา<br />ด้วยกัน",
+    "general_inquiries": "ติดต่อสอบถามทั่วไป",
+    "visit_us": "เยี่ยมชมเรา",
+    "fallback_address": "123 ครีเอทีฟดิสทริกต์,\nถนนสุขุมวิท, กรุงเทพมหานคร,\nประเทศไทย 10110"
+  },
+  "footer": {
+    "fallback_copyright": "Morerolls Studio"
+  }
+}

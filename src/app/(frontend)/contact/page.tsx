@@ -3,11 +3,13 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { ContactPage as ContactPageType } from "@/payload-types";
 import { getLocale } from "@/lib/locale";
+import { getDictionary } from "@/lib/i18n";
 
 export const revalidate = 60; // ISR - revalidate every 60 seconds
 
 export default async function ContactPage() {
     const locale = await getLocale();
+    const dict = await getDictionary(locale);
     const payload = await getPayload({ config: configPromise });
     let contactData: ContactPageType | null = null;
 
@@ -29,13 +31,13 @@ export default async function ContactPage() {
                 <div className="max-w-4xl">
                     <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold mb-12 uppercase tracking-tighter"
                         dangerouslySetInnerHTML={{ 
-                            __html: (headline || "Let's Create<br />Something<br />Extraordinary.").replace(/\n/g, '<br />') 
+                            __html: (headline || dict.contact.fallback_headline).replace(/\n/g, '<br />') 
                         }}
                     />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20">
                         <div>
-                            <h3 className="text-sm font-bold uppercase tracking-widest mb-4 text-neutral-500">General Inquiries</h3>
+                            <h3 className="text-sm font-bold uppercase tracking-widest mb-4 text-neutral-500">{dict.contact.general_inquiries}</h3>
                             <a href={`mailto:${email || "hello@morerolls.com"}`} className="text-2xl md:text-3xl font-medium hover:text-neutral-600 transition-colors block mb-2">
                                 {email || "hello@morerolls.com"}
                             </a>
@@ -46,9 +48,9 @@ export default async function ContactPage() {
 
                         {visitUs?.showSection && (
                             <div>
-                                <h3 className="text-sm font-bold uppercase tracking-widest mb-4 text-neutral-500">Visit Us</h3>
+                                <h3 className="text-sm font-bold uppercase tracking-widest mb-4 text-neutral-500">{dict.contact.visit_us}</h3>
                                 <address className="text-xl md:text-2xl font-medium not-italic leading-relaxed whitespace-pre-line">
-                                    {visitUs.address || "123 Creative District,\nSukhumvit Road, Bangkok,\nThailand 10110"}
+                                    {visitUs.address || dict.contact.fallback_address}
                                 </address>
                             </div>
                         )}
