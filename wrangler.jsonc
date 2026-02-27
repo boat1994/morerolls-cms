@@ -23,6 +23,9 @@
       "preview_bucket_name": "morerolls",
     },
   ],
+  "vars": {
+    "NEXT_PUBLIC_R2_HOSTNAME": "pub-77110c3d73d94ff0b5c55e00a12edd3c.r2.dev"
+  },
   "env": {
     "dev": {
       "name": "morerolls-cms-dev",
