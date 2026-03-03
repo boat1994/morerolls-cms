@@ -113,13 +113,8 @@ export function NavbarClient({ currentLocale, dict, searchDict }: NavbarClientPr
                         </Link>
                     </div>
 
-                    {/* Mobile: Search + Language Switcher (Right) */}
+                    {/* Mobile: Search (Right) */}
                     <div className="flex items-center gap-3 justify-end z-50">
-                        <LanguageSwitcher
-                            currentLocale={currentLocale}
-                            colorClass={textColorClass}
-                            dict={dict}
-                        />
                         <div className={`${textColorClass}`}>
                             <Search dict={searchDict} />
                         </div>
@@ -144,6 +139,11 @@ export function NavbarClient({ currentLocale, dict, searchDict }: NavbarClientPr
                             <MobileNavLink href="/services" onClick={() => handleNavigation("/services")}>{dict.services}</MobileNavLink>
                             <MobileNavLink href="/about" onClick={() => handleNavigation("/about")}>{dict.about}</MobileNavLink>
                             <MobileNavLink href="/contact" onClick={() => handleNavigation("/contact")}>{dict.contact}</MobileNavLink>
+                            <LanguageSwitcher
+                                currentLocale={currentLocale}
+                                colorClass="text-black"
+                                dict={dict}
+                            />
                         </div>
                     </motion.div>
                 )}
