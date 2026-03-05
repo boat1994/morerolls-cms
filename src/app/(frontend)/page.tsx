@@ -50,12 +50,16 @@ export default async function Page() {
 
   const heroVideo = rootMedia?.heroVideo;
   const clientLogos = rootMedia?.clientLogos || [];
+  const heroTitle = heroVideo?.heroTitle as string | undefined;
+  const heroSubtitle = heroVideo?.heroSubtitle as string | undefined;
 
   return (
     <main className=" min-h-screen">
       <HeroVideo 
         desktop={heroVideo?.desktop as VideoSource | undefined}
         mobile={heroVideo?.mobile as VideoSource | undefined}
+        title={heroTitle}
+        subtitle={heroSubtitle}
       />
       <ClientLogos logos={clientLogos} />
     <Container className="pt-4">

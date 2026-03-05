@@ -12,6 +12,26 @@ export const RootPageMedias: GlobalConfig = {
       label: 'Hero Video',
       fields: [
         {
+          name: 'heroTitle',
+          type: 'text',
+          label: 'Hero Title',
+          localized: true,
+          defaultValue: 'MOREROLLS STUDIO',
+          admin: {
+            description: 'Main heading displayed over the hero video',
+          },
+        },
+        {
+          name: 'heroSubtitle',
+          type: 'text',
+          label: 'Hero Subtitle',
+          localized: true,
+          defaultValue: 'Cinematic Visual Storytelling',
+          admin: {
+            description: 'Subtitle text displayed under the hero title',
+          },
+        },
+        {
           name: 'desktop',
           type: 'group',
           label: 'Desktop Video',
