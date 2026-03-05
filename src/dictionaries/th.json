@@ -1,6 +1,6 @@
 {
   "nav": {
-    "projects": "ผลงาน",
+    "projects": "โปรเจกต์",
     "blog": "บล็อก",
     "services": "บริการ",
     "about": "เกี่ยวกับเรา",
@@ -11,17 +11,17 @@
     "search": "ค้นหา"
   },
   "search": {
-    "placeholder": "ค้นหาผลงานตามชื่อ...",
+    "placeholder": "ค้นหาโปรเจกต์ตามชื่อ...",
     "results": "ผลลัพธ์",
     "searching": "กำลังค้นหา...",
-    "no_projects_found": "ไม่พบผลงาน",
+    "no_projects_found": "ไม่พบโปรเจกต์",
     "suggestions_title": "คำแนะนำตามประเภท",
     "no_suggestions": "ไม่มีคำแนะนำ"
   },
   "home": {
-    "header_title": "ผลงาน",
-    "header_subtitle": "งานภาพยนตร์โดย More Rolls",
-    "view_all_projects": "ดูผลงานทั้งหมด"
+    "header_title": "โปรเจกต์",
+    "header_subtitle": "",
+    "view_all_projects": "ดูโปรเจกต์ทั้งหมด"
   },
   "blog": {
     "header_title": "บล็อก",
@@ -31,10 +31,10 @@
     "no_posts_found": "ไม่พบบทความ"
   },
   "projects": {
-    "header_title": "ผลงาน",
+    "header_title": "โปรเจกต์",
     "header_subtitle": "งานภาพยนตร์โดย More Rolls",
     "no_image": "ไม่มีรูปภาพ",
-    "no_projects_found": "ไม่พบผลงาน"
+    "no_projects_found": "ไม่พบโปรเจกต์"
   },
   "services": {
     "header_title": "บริการ",
