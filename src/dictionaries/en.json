@@ -19,8 +19,8 @@
     "no_suggestions": "No suggestions available."
   },
   "home": {
-    "header_title": "Films",
-    "header_subtitle": "Cinematic works by More Rolls",
+    "header_title": "Projects",
+    "header_subtitle": "",
     "view_all_projects": "View All Projects"
   },
   "blog": {
@@ -31,8 +31,8 @@
     "no_posts_found": "No posts found"
   },
   "projects": {
-    "header_title": "Films",
-    "header_subtitle": "Cinematic works by More Rolls",
+    "header_title": "Projects",
+    "header_subtitle": "",
     "no_image": "No Image",
     "no_projects_found": "No projects found"
   },
