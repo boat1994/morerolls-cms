@@ -15,7 +15,13 @@ const nextConfig: NextConfig = {
         hostname:
           process.env.NEXT_PUBLIC_R2_HOSTNAME || 'pub-ce68ca97bac342d383f6284fff969191.r2.dev',
         port: '',
-        pathname: '/**', // อนุญาตทุก Path
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+        pathname: '/**',
       },
     ],
   },

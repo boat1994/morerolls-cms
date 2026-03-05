@@ -41,7 +41,7 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
         </Link>
 
         {/* Video Player */}
-        <div className="aspect-video w-full bg-neutral-100 mb-12 relative overflow-hidden group/video">
+        <div className="aspect-video w-full bg-neutral-100 mb-6 relative overflow-hidden group/video">
           {hasWindow && project.videoSrc ? (
             <>
               {!isPlaying && posterUrl && (
@@ -92,8 +92,8 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
         </div>
 
         {/* Project Info */}
-        <div className="flex flex-col md:grid md:grid-cols-3 gap-12">
-          <div className="order-1 md:col-span-2">
+        <div className="flex flex-col md:grid md:grid-cols-3 gap-x-12 gap-y-8">
+          <div className="order-1 md:col-span-2 md:row-start-1">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -111,7 +111,7 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
             </motion.p>
           </div>
 
-          <div className="order-2 md:order-none space-y-8 md:col-start-3 md:row-span-2">
+          <div className="order-2 md:order-none space-y-8 md:col-start-3 md:row-start-1 md:row-span-2">
             {project.client && (
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -151,7 +151,7 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
 
           {/* Screenshots Section */}
           {project.screenshots && project.screenshots.length > 0 && (
-            <div className="order-3 md:order-none md:col-span-2 md:mt-4">
+            <div className="order-3 md:col-span-2 md:row-start-2 md:mt-0">
               <hr className="border-neutral-200" />
               {project.screenshots.map((item, index) => {
                 const imgMedia = typeof item.image === 'object' ? (item.image as Media) : null
