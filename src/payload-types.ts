@@ -540,6 +540,14 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface RootPageMedia {
   id: number;
   heroVideo: {
+    /**
+     * Main heading displayed over the hero video
+     */
+    heroTitle?: string | null;
+    /**
+     * Subtitle text displayed under the hero title
+     */
+    heroSubtitle?: string | null;
     desktop: {
       type: 'upload' | 'youtube';
       url?: string | null;
@@ -677,6 +685,8 @@ export interface RootPageMediasSelect<T extends boolean = true> {
   heroVideo?:
     | T
     | {
+        heroTitle?: T;
+        heroSubtitle?: T;
         desktop?:
           | T
           | {

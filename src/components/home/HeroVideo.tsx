@@ -17,6 +17,8 @@ export interface VideoSource {
 export interface HeroVideoProps {
   mobile?: VideoSource;
   desktop?: VideoSource;
+  title?: string | null;
+  subtitle?: string | null;
 }
 
 import { Media } from "@/payload-types";
@@ -39,7 +41,7 @@ const DEFAULT_VIDEO: VideoSource = {
 
 type VideoStatus = 'loading' | 'playing' | 'error';
 
-export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
+export function HeroVideo({ mobile, desktop, title, subtitle }: HeroVideoProps) {
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [isMounted, setIsMounted] = useState(false);
   const [videoStatus, setVideoStatus] = useState<VideoStatus>('loading');
@@ -197,10 +199,10 @@ export function HeroVideo({ mobile, desktop }: HeroVideoProps) {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tracking-tighter mb-4 drop-shadow-lg">
-              MOREROLLS STUDIO
+              {title || 'MOREROLLS STUDIO'}
             </h1>
             <p className="text-lg md:text-xl text-white/90 tracking-widest uppercase max-w-2xl mx-auto drop-shadow-md">
-              Cinematic Visual Storytelling
+              {subtitle || 'Cinematic Visual Storytelling'}
             </p>
           </motion.div>
         </Container>
