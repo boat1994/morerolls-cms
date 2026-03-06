@@ -15,6 +15,7 @@ export default async function ProjectsPage() {
   const projects = await payload.find({
     collection: 'projects',
     sort: 'order',
+    limit: 0,
     locale,
     fallbackLocale: 'en',
   })
