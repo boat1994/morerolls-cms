@@ -35,14 +35,14 @@ export function ClientLogos({ logos = [] }: ClientLogosProps) {
                         return (
                             <div
                                 key={item.id || index}
-                                className="flex flex-col items-center justify-center gap-3 opacity-50 hover:opacity-100 transition-all duration-300 group relative w-full aspect-square"
+                                className="flex flex-col items-center justify-center gap-3 transition-all duration-300 group relative w-full aspect-square"
                             >
                                 <div className="relative w-20 h-20">
                                     <Image 
                                         src={logoUrl} 
                                         alt={logoAlt} 
                                         fill 
-                                        className="object-contain"
+                                        className="object-contain brightness-0"
                                     />
                                 </div>
                             </div>
@@ -78,12 +78,12 @@ export function ClientLogos({ logos = [] }: ClientLogosProps) {
                                         key={`${item.id}-${index}`}
                                         className="flex items-center gap-3 h-12 whitespace-nowrap relative w-16"
                                     >
-                                        <div className="relative w-16 h-16 opacity-70">
+                                        <div className="relative w-16 h-16">
                                             <Image 
                                                 src={logoUrl}  
                                                 alt={logoAlt} 
                                                 fill 
-                                                className="object-contain"
+                                                className="object-contain brightness-0"
                                             />
                                         </div>
                                     </div>
