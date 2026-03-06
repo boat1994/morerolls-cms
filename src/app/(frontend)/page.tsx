@@ -32,7 +32,7 @@ const getHomeProjects = (locale: string) => unstable_cache(
     const payload = await getPayload({ config: configPromise });
     return await payload.find({
       collection: "projects",
-      limit: 12,
+      limit: 6,
       sort: 'order',
       locale: locale as 'en' | 'th',
       fallbackLocale: 'en',
