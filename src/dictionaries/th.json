@@ -25,7 +25,7 @@
   },
   "blog": {
     "header_title": "บล็อก",
-    "header_subtitle": "เรื่องราว ความรู้ และเบื้องหลัง",
+    "header_subtitle": "",
     "all_categories": "ทั้งหมด",
     "no_image": "ไม่มีรูปภาพ",
     "no_posts_found": "ไม่พบบทความ"
