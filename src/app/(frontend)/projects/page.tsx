@@ -14,10 +14,16 @@ export default async function ProjectsPage() {
   const payload = await getPayload({ config: configPromise })
   const projects = await payload.find({
     collection: 'projects',
-    sort: 'order',
     limit: 0,
     locale,
     fallbackLocale: 'en',
+  })
+
+  // Sort: order >= 1 ascending first, then order = 0 / null at the end
+  const sortedDocs = [...projects.docs].sort((a, b) => {
+    const aOrder = (a.order && a.order >= 1) ? a.order : Infinity
+    const bOrder = (b.order && b.order >= 1) ? b.order : Infinity
+    return aOrder - bOrder
   })
 
   return (
@@ -30,7 +36,7 @@ export default async function ProjectsPage() {
          <p className="text-lg text-black">{dict.projects.header_subtitle}</p>
         </div>
       </Container>
-      <ProjectGrid projects={projects.docs as Project[]} dict={dict.projects} />
+      <ProjectGrid projects={sortedDocs as Project[]} dict={dict.projects} />
     </main>
   )
 }

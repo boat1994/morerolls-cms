@@ -34,6 +34,11 @@ const getHomeProjects = (locale: string) => unstable_cache(
       collection: "projects",
       limit: 6,
       sort: 'order',
+      where: {
+        and: [
+          { isFeatured: { equals: true } },
+        ],
+      },
       locale: locale as 'en' | 'th',
       fallbackLocale: 'en',
     });
