@@ -8,6 +8,11 @@ import { Media } from '@/payload-types'
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { InstagramEmbed } from '@/components/ui/InstagramEmbed'
+
+function isInstagramUrl(url: string) {
+  return /instagram\.com\/(reel|p)\//.test(url)
+}
 
 import { Project } from '@/payload-types'
 
@@ -41,55 +46,61 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
         </Link>
 
         {/* Video Player */}
-        <div className="aspect-video w-full bg-neutral-100 mb-6 relative overflow-hidden group/video">
-          {hasWindow && project.videoSrc ? (
-            <>
-              {!isPlaying && posterUrl && (
-                <div
-                  className="absolute inset-0 z-10 cursor-pointer"
-                  onClick={() => setIsPlaying(true)}
-                >
-                  <Image
-                    src={posterUrl}
-                    alt={project.title}
-                    fill
-                    unoptimized={true} // เพิ่มบรรทัดนี้
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover/video:bg-black/20 transition-colors duration-300" />
+        {hasWindow && project.videoSrc && isInstagramUrl(project.videoSrc) ? (
+          <div className="w-full bg-neutral-100 mb-6 flex justify-center py-4">
+            <InstagramEmbed url={project.videoSrc} />
+          </div>
+        ) : (
+          <div className="aspect-video w-full bg-neutral-100 mb-6 relative overflow-hidden group/video">
+            {hasWindow && project.videoSrc ? (
+              <>
+                {!isPlaying && posterUrl && (
+                  <div
+                    className="absolute inset-0 z-10 cursor-pointer"
+                    onClick={() => setIsPlaying(true)}
+                  >
+                    <Image
+                      src={posterUrl}
+                      alt={project.title}
+                      fill
+                      unoptimized={true}
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover/video:bg-black/20 transition-colors duration-300" />
 
-                  {/* Play Button */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg transform group-hover/video:scale-110 transition-transform duration-300">
-                      <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-black border-b-[10px] border-b-transparent ml-1" />
+                    {/* Play Button */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg transform group-hover/video:scale-110 transition-transform duration-300">
+                        <div className="w-0 h-0 border-t-[10px] border-t-transparent border-l-[18px] border-l-black border-b-[10px] border-b-transparent ml-1" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              <ReactPlayer
-                url={project.videoSrc}
-                width="100%"
-                height="100%"
-                controls={true}
-                playing={isPlaying}
-                onPlay={() => setIsPlaying(true)}
-                config={{
-                  youtube: {
-                    playerVars: { showinfo: 0, rel: 0, modestbranding: 1, autoplay: 1 },
-                  },
-                }}
-              />
-            </>
-          ) : posterUrl ? (
-            /* Static Image if no video */
-            <Image src={posterUrl} alt={project.title} fill className="object-cover" />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-neutral-400">
-              Video / Image not available
-            </div>
-          )}
-        </div>
+                <ReactPlayer
+                  url={project.videoSrc}
+                  width="100%"
+                  height="100%"
+                  controls={true}
+                  playing={isPlaying}
+                  onPlay={() => setIsPlaying(true)}
+                  config={{
+                    youtube: {
+                      playerVars: { showinfo: 0, rel: 0, modestbranding: 1, autoplay: 1 },
+                    },
+                  }}
+                />
+              </>
+            ) : posterUrl ? (
+              /* Static Image if no video */
+              <Image src={posterUrl} alt={project.title} fill className="object-cover" />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center text-neutral-400">
+                Video / Image not available
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Project Info */}
         <div className="flex flex-col md:grid md:grid-cols-3 gap-x-12 gap-y-8">
