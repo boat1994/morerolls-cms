@@ -10,13 +10,15 @@ export function VideoPlayer({ videoId, className, autoPlay = false }: VideoPlaye
     const src = `https://www.youtube.com/embed/${videoId}?autoplay=${autoPlay ? 1 : 0}&rel=0&modestbranding=1`;
 
     return (
-        <div className={cn("relative w-full overflow-hidden rounded-xl bg-black", className)} style={{ aspectRatio: "16/9" }}>
+        <div className={cn("relative w-full overflow-hidden rounded-xl", className)} style={{ aspectRatio: "16/9" }}>
             <iframe
                 src={src}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                frameBorder="0"
                 className="absolute inset-0 h-full w-full border-0"
+                style={{ display: 'block' }}
             />
         </div>
     );
